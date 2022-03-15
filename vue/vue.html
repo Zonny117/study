@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue JS 기초</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!-- 뷰JS 스탠드얼론 버전 가져오기! -->
+    <script>
+        ///////// 로딩구역 /////////////////////
+        window.addEventListener("load", () => {
+
+            console.log("로딩완료!");
+
+            // 1. 텍스트 바인딩 ////////////////
+            new Vue({
+                el: "#app1",
+                // el - 요소를 선택 세팅 (element)
+                data: {
+                    iam: "나는 프론트엔드 개발자다!"
+
+                    // 변수 : 내용
+                }
+
+                // data - 선택요소 내부에서 사용할 데이터 세팅
+
+
+            }); /// vue
+
+            // 2. 반복 렌더링 /////////////////////
+
+            // 3. 이벤트 사용하기 /////////////////////
+
+
+            // 4. 입력 양식과 동기화하기 /////////
+
+
+            // 5. 조건분기 ///////////////
+
+
+        }); ///////////// 로딩구역 ///////////////////
+        //////////////////////////////////////////////
+    </script>
+</head>
+
+<body>
+    <h1>Vue JS 기초연습</h1>
+
+    <hr>
+
+    <h2>1. 텍스트 바인딩(binding->데이터넣기!)</h2>
+    <div id="app1">
+        <p>
+            {{iam}}
+            <!-- 
+                {{}} 중복 중괄호는 콧수염 표시자(Mustasch)
+                뷰 js의 data 속성 변수의 값이 표시되는 자리
+             -->
+        </p>
+    </div>
+
+    <hr>
+
+    <h2>2. 반복 렌더링</h2>
+    <div id="app2">
+
+    </div>
+
+    <hr>
+
+    <h2>3. 이벤트 사용하기</h2>
+    <div id="app3">
+
+    </div>
+
+    <hr>
+
+    <h2>4. 입력 양식과 동기화하기</h2>
+    <div id="app4">
+
+    </div>
+
+    <hr>
+
+    <h2>5. 조건분기</h2>
+    <div id="app5">
+
+    </div>
+
+
+
+</body>
+
+</html>
