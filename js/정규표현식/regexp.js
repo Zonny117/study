@@ -53,3 +53,31 @@ pattern.test('abcde');
 pattern.test('bcde');
 // console.log(pattern.test('bcde'));
 // 결과값 false
+
+
+
+
+/* 
+    [문자열 메소드 실행]
+
+    1. string.match()
+
+    = exec와 유사한 기능을 수행한다. 문자열 내에 일치한 정보가 있다면 배열 리턴, 없으면 null 값을 리턴한다.
+
+    2. string.replace(첫번째 인자, 두번째 인자)
+
+    = 문자열 내 첫번째 인자로 받은 패턴과 일치한 문자를 두번째 인자로 받은 패턴으로 교체한다.
+
+
+*/
+
+var str = 'abcdef';
+
+str.match(pattern);
+
+// console.log(str.match(pattern))
+// 결과값 ['a']
+
+str.replace(pattern, 'A');
+// console.log(str.replace(pattern, 'A'));
+// 결과값 Abcdef
