@@ -81,3 +81,5 @@ str.match(pattern);
 str.replace(pattern, 'A');
 // console.log(str.replace(pattern, 'A'));
 // 결과값 Abcdef
+
+

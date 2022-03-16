@@ -17,7 +17,8 @@
 <!-- 
     순수 자바스크립트 코드는 제이쿼리보다 빠르게 로드되기 때문에
     head 영역에서 불러오면 HTML이 로드되기도 전에 스크립트가 실행된다.
-    window.onload로 dom 객체를 불러온후 실행시키거나 html 아래쪽에 배치한다.
+    window 객체의 load 이벤트로 dom 객체를 불러온후 실행시키거나 html 아래쪽에 배치한다.
+    = window.addEventListener('load', function(){});
  -->
 <script src="vartest.js"></script>
 
