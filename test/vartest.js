@@ -2,28 +2,32 @@ var test = 1 + 1;
 
 function vartest() {
 
-    var test1 = 0;
+    var test1 = null;
 
     document.querySelector(".btn").addEventListener('click', function () {
-        return test1 = 2
+        test1 = 2
     });
 
-    return test = test + test1;
+    return test1
 
 }
 
 
-vartest();
+// vartest();
+
+// console.log(vartest());
 
 // let test1 = 0;
 
 // document.querySelector(".btn").addEventListener('click', function () {
-//     return test1 = 2
+//     return test1 = 3
 
 // });
 
 document.querySelector(".btn").addEventListener('click', function () {
-    console.log(test);
+
+    vartest();
+    console.log(vartest());
 
 
 });
