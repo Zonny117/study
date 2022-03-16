@@ -22,20 +22,19 @@ var pattern2 = new RegExp('a');
 /*
 [정규표현식 메소드 실행]
 
-RegExp는 객체 즉, 찾고자하는 문자를 담고있는 패턴을 말한다.
-여기서는 변수 pattern들에 담겨져 있는 문자열이다. 
-
 1. RegExp.exec()
    = exec는 찾고자 하는 정보가 있다면 배열로 리턴, 찾고자 하는 정보가 없다면 null을 리턴한다.
    
 
 2. RegExp.test()
-    = test는 찾는 정보 유무에 따라 블리언 값으로 리턴한다.
+    = test는 찾는 정보의 존재 유무에 따라 블리언 값으로 리턴한다.
 */
+
 
 
 pattern.exec('abcde');
 // console.log(pattern.exec('abcde'));
+// console.log(new RegExp('a').exec('abcde')) = 정규표현식 메소드는 이런 방식으로도 사용할 수 있다.
 // 결과값 ["a"]
 
 var pattern3 = /a./;
