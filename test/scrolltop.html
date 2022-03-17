@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>특정구간 스크롤 값 가공</title>
+
+    <script src="scrolltop.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #wrap {
+            width: 100%;
+        }
+
+        .stickybox {
+            position: relative;
+            width: 100%;
+            background-color: #000;
+            height: 300vh;
+        }
+
+        .stickybox .spanbx {
+            display: inline-block;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 200px;
+            left: 50%;
+            transform: translateX(50%);
+            color: #fff;
+        }
+
+        .stickybox span{
+            color: #fff;
+        }
+
+        .vh {
+            width: 100%;
+            height: 100vh;
+            background-color: #ccc;
+
+        }
+
+        .vh2{
+            background-color: rgb(146, 106, 106);
+        }
+        .vh3{
+            background-color: rgb(117, 25, 25);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="stickybox">
+            <div class="spanbx">
+                <span>스</span>
+                <span>티</span>
+                <span>키</span>
+            </div>
+        </div>
+        <div class="vh vh1"></div>
+        <div class="vh vh2"></div>
+        <div class="vh vh3"></div>
+        </divq>
+</body>
+
+</html>
