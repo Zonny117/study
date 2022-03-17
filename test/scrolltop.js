@@ -22,7 +22,7 @@ window.onload = function () {
             [특정 요소 내 스크롤 값 1~100 구간 만들기]
 
             스크롤 구간의 시작점과 끝을 지정해야한다. 
-            시작점은 winodw.scrollY를 이용해 실시간으로 값을 받아와야하며, 
+            시작점은 window.scrollY를 이용해 실시간으로 값을 받아와야하며, 
             (익스플로러 지원안함, pageYOffset 등을 이용해 크로스 브라우징)
             보이는 화면 기준 밑바닥에서부터 스크롤의 값이 0부터 시작해야하기 때문에
             window.scrollY 와 window.innerHeight 값을 더하면 스크롤의 시작점은
@@ -38,6 +38,10 @@ window.onload = function () {
 
             이때 계산된 소수점에 100을 곱하고 Math.floor를 통해 소수점 이하를 버린다.
             0 ~ 100구간이 형성된다.
+
+            계산식 : Math.floor((스크롤 기준점 - 특정요소 top 값) / 특정요소 height값 * 100);
+
+            결과값으로 나오는 0과 100 이외의 수치는 if문으로 제어하면 된다.
         */
 
 
@@ -51,7 +55,10 @@ window.onload = function () {
         if (innerh >= top) {
             let ga = Math.floor((innerh - top) / bottom * 100);
 
-            console.log(ga)
+            if (ga >= 100) {
+                ga = 100
+            }
+            // console.log(ga)
 
 
 
