@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="test.js"></script>
+
+    <!-- 
+    순수 자바스크립트 코드는 제이쿼리보다 빠르게 로드되기 때문에
+    head 영역에서 불러오면 HTML이 로드되기도 전에 스크립트가 실행된다.
+    window 객체의 load 이벤트로 dom 객체를 불러온후 실행시키거나 html 아래쪽에 배치한다.
+    = window.addEventListener('load', function(){});
+ -->
 
     <title>실험용 html</title>
 </head>
@@ -12,14 +20,24 @@
 <body>
     <button class="btn">버튼</button>
 
+    <br>
+    <hr>
+    <span>부모 요소 만들기</span>
+    <div class="mMod7">
+        <a href="###" class="a1">디바이언스</a>
+        <a href="###">하이팩토리</a>
+        <a href="###">예스</a>
+        <a href="###">예스</a>
+        <a href="###">예스</a>
+        <a href="###">예스</a>
+    </div>
+
 </body>
 
-<!-- 
-    순수 자바스크립트 코드는 제이쿼리보다 빠르게 로드되기 때문에
-    head 영역에서 불러오면 HTML이 로드되기도 전에 스크립트가 실행된다.
-    window 객체의 load 이벤트로 dom 객체를 불러온후 실행시키거나 html 아래쪽에 배치한다.
-    = window.addEventListener('load', function(){});
- -->
-<script src="vartest.js"></script>
+
+
+
+
+
 
 </html>

@@ -66,7 +66,6 @@ window.onload = function () {
 
 
 
-        let body = document.body.clientHeight;
 
         // console.log(sct + "스크롤")
     });
