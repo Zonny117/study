@@ -83,3 +83,17 @@ str.replace(pattern, 'A');
 // 결과값 Abcdef
 
 
+
+/* 
+    [캐럿(^)]
+    ^뒤에 오는 문자열로 시작하는 텍스트를 찾는다.
+
+    [달러($)]
+    캐럿과는 반대로 문자열 뒤에 붙는다. $ 기호는 해당 문자열로 끝나는 텍스트를 찾는다.
+*/
+
+// console.log(/^zonny117/.test('zonny117 is zonny'));
+// 결과값 true, 문자열이 zonny117로 시작하기 때문이다.
+
+// console.log(/zonny117$/.test('zonny117 is zonny'));
+// 결과값 false, 문자열이 zonny117이 아닌 zonny로 끝나기 때문이다.
