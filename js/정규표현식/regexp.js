@@ -193,7 +193,26 @@ str.replace(pattern, 'A');
 
 
 /[zon][zon]/.exec('zonny117 is zonny');
-console.log(/[zon][zon]/.exec('zonny117 is zonny'));
+// console.log(/[zon][zon]/.exec('zonny117 is zonny'));
 // 결과값 [zo] 문자 2개 출력
 
 // console.log(/[o~y1~9].../.exec('zonny117 is zonny'));
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* 
+    [서브패턴]
+
+    괄호()를 이용해 패턴 내부에서 또 다른 패턴을 정의할 수 있다.
+    패턴의 개수는 파이프(|) 기호를 이용해 늘릴 수 있다.
+
+    예) 문자열 내 on 혹은 fri 혹은 sun의 패턴을 가진 문자열을 찾는다.
+    (on|fri|sun)
+
+    예)
+
+    
+    
+*/
+
+// console.log(('monday, Friday, sunday').match(/(on|fri|sun)/))
