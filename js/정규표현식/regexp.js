@@ -90,6 +90,10 @@ str.replace(pattern, 'A');
 
     [달러($)]
     캐럿과는 반대로 문자열 뒤에 붙는다. $ 기호는 해당 문자열로 끝나는 텍스트를 찾는다.
+
+    [역슬래시(\)]
+
+    \는 정규표현식에서 문자열로 취급하는 명령어다. (escape 기법이라 한다.)
 */
 
 
@@ -103,3 +107,19 @@ str.replace(pattern, 'A');
 
 // console.log(/zonny117$/.test('zonny117 is zonny'));
 // 결과값 false, 문자열이 zonny117이 아닌 zonny로 끝나기 때문이다.
+
+
+/^$zonny117/.test('$zonny117 is zonny');
+// $zonny117로 시작하는 문자열이 있는지 찾는 정규표현식을 짜려고 한다. 
+// 캐럿을 넣고 그 뒤에 $zonny117을 넣었지만 이 문법은 null값을 리턴한다.
+// 이유는 캐럿 뒤에 오는 달러 기호가 문자열이 아닌 기호로 인식되기 때문이다.
+
+/^\$zonny117/.test('$zonny117 is zonny');
+// 따라서 기호가 두개가 온다면 역슬래시를 이용해 달러를 escape를 시켜주고 
+// 해당 달러 기호는 문자열로 취급하게 명령하면, $zonny117로 시작하는 문자열을 찾는다.
+
+
+// console.log(/^\$zonny117/.test('$zonny117 is zonny'));
+// 결과값 true
+
+
