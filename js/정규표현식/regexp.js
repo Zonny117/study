@@ -145,3 +145,23 @@ str.replace(pattern, 'A');
 
 // console.log(/\......\./.exec('zonny is ... me.'))
 // 결과값 [... me.]
+
+
+/* 
+    [대괄호([])]
+
+    []는 대괄호 안에 있는 문자를 가지고 있는 문자열을 출력한다.
+    대괄호 기호는 1개의 문자로 취급된다. 
+    즉, [abc]는 1개의 문자 [abc][def]는 2개의 문자다.
+    
+*/
+
+
+/[zon]/.exec('zonny117 is zonny');
+// console.log(/[zon]/.exec('zonny117 is zonny'));
+// 결과값 [z] 문자 1개 출력
+
+
+/[zon][zon]/.exec('zonny117 is zonny');
+// console.log(/[zon][zon]/.exec('zonny117 is zonny'));
+// 결과값 [zo] 문자 2개 출력
