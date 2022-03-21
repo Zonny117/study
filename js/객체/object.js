@@ -36,10 +36,13 @@ window.addEventListener('load', function () {
 
     for (let x in member) {
 
+
+        x;
         // console.log(x + " key");
         // for in 문은 객체를 자동으로 굴려준다.
         // 변수 x만 호출할 경우, 해당 객체의 key만 출력한다.
 
+        member[x];
         // console.log(member[x] + " value");
         // 객체의 value를 출력한다.
     }
