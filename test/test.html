@@ -15,6 +15,29 @@
  -->
 
     <title>실험용 html</title>
+
+    <style>
+        .mMod7 a {
+            display: block;
+            margin-bottom: calc(var(--i) * 10px);
+        }
+
+        /* 
+            [변수를 이용한 css 설정]
+        
+            --변수 : 값 
+
+            css 설정에서 var(--변수)를 이용하면 
+            변수에 할당된 값이 적용된다.
+
+            예) --i : 1 
+            --i라는 변수에 1이라는 값이 할당됨.
+
+            밑에 mMod7 a에 --i 변수가 들어가있고, 값은 제각각 다르다.
+            css에서 calc를 이용해 각각 다른 수치의 값을 적용할 수 있다.
+            불필요한 반복 작업을 하지 않아도 되는 장점이 있다.
+        */
+    </style>
 </head>
 
 <body>
@@ -24,12 +47,12 @@
     <hr>
     <span>부모 요소 만들기</span>
     <div class="mMod7">
-        <a href="###" class="a1">디바이언스</a>
-        <a href="###">하이팩토리</a>
-        <a href="###">예스</a>
-        <a href="###">예스</a>
-        <a href="###">예스</a>
-        <a href="###">예스</a>
+        <a href="###" class="a1" style="--i:1">디바이언스</a>
+        <a href="###" style="--i:2">하이팩토리</a>
+        <a href="###" style="--i:3">예스</a>
+        <a href="###" style="--i:4">예스</a>
+        <a href="###" style="--i:5">예스</a>
+        <a href="###" style="--i:6">예스</a>
     </div>
 
 </body>
