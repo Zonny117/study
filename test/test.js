@@ -58,7 +58,7 @@ window.onload = function () {
     function wrap(el, wrapper) {
         el.parentNode.insertBefore(wrapper, el);
         wrapper.appendChild(el);
-        wrapper.classList.add("swiper-slide")
+        wrapper.classList.add("swiper-slide");
     }
 
     let par = document.querySelectorAll(".mMod7 a");
