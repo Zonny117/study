@@ -8,7 +8,7 @@ window.addEventListener('load', function () {
             "서울": "강동구",
             "잠실": "송파구"
         }
-    }
+    };
 
 
 
