@@ -1,0 +1,71 @@
+[ios ovh, brad]
+
+-webkit-backface-visibility: hidden;
+-moz-backface-visibility: hidden;
+-webkit-transform: translate3d(0, 0, 0);
+-moz-transform: translate3d(0, 0, 0);
+
+ /* fixed ios js delay fix */
+-webkit-transform: translateZ(0);
+-webkit-transform: translateZ(0px, 0px, 0px);
+
+// 100vh fixed layer fix js
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+// 100vh fixed layer fix css
+height: calc(var(--vh, 1vh) * 100);
+
+// 100vh fixed layer fix 두번째 방법
+
+-webkit-fill-available
+
+
+// 스크롤바 미출력, ie, 엣지, 파이어폭스, ios13이하
+.scroll_container{ 
+-ms-overflow-style: none; /* IE and Edge */ 
+scrollbar-width: none; /* Firefox */ 
+} 
+
+//ios 14 이상
+.scroll_container::-webkit-scrollbar{ 
+display: none; width: 0; /* Remove scrollbar space */ 
+height: 0; 
+background: transparent; /* Optional: just make scrollbar invisible */ 
+-webkit-appearance: none; 
+}
+
+
+
+// 영역 새로고침 함수 (애니메이션 등 제대로 작동안할시)
+한칸 띄어쓰기 주의!!!
+
+function reload() {
+
+        $('div').load(location.href + ' .div');
+	
+    }
+
+
+// 모달 레이어팝업 바디 스크롤 막기
+let iOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+
+    const body = document.querySelector('body');
+    let ios_scroll = 0;
+
+    function enable() {
+        ios_scroll = window.pageYOffset;
+        body.style.overflow = 'hidden';
+        body.style.position = 'fixed';
+        body.style.top = `-${ios_scroll}px`;
+        body.style.width = '100%';
+    }
+
+    function disable() {
+        body.style.removeProperty('overflow');
+        body.style.removeProperty('position');
+        body.style.removeProperty('top');
+        body.style.removeProperty('width');
+        window.scrollTo(0, ios_scroll);
+    }
