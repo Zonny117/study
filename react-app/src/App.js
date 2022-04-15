@@ -34,13 +34,24 @@ function Article(props){
 </article>
 }
 
+function Create(){
+  return <article>
+    <h2>Create</h2>
+    <form>
+      <p><input type="text" name="title" placeholder='title'></input></p>
+      <p><textarea name='body' placeholder='body'></textarea></p>
+      <p><input type='submit' value='Create'></input></p>
+    </form>
+  </article>
+}
+
 function App() {
   const [mode, setMode] = useState('WELCOME');
   const [id, setId] = useState(null);
   const topics = [
     {id:1, title:'html', body:'html is ...'},
     {id:2, title:'css', body:'css is ...'},
-    {id:3, title:'javascript', body:'javascript is ...'},
+    {id:3, title:'javascript', body:'javascript is ...'}
   ]
   let content = null;
   if(mode==='WELCOME'){
@@ -54,14 +65,18 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
+  }else if(mode === "CREATE"){
+    content = <Create onCreate={(title,body)=>{}}></Create>
   }
+
+
   return (
    <div>
 
     <Header title="WEB" onChangeMode={()=>{setMode("WELCOME");}}></Header>
     <Nav topics={topics} onChangeMode={(_id)=>{setMode("READ");setId(_id);}}></Nav>
     {content}
-
+    <a href='/create' onClick={(event)=>{event.preventDefault(); setMode("CREATE");}}>Create</a>
    </div>
   );
 }
