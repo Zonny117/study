@@ -86,7 +86,6 @@ function App() {
 
   return (
    <div>
-
     <Header title="WEB" onChangeMode={()=>{setMode("WELCOME");}}></Header>
     <Nav topics={topics} onChangeMode={(_id)=>{setMode("READ");setId(_id);}}></Nav>
     {content}
