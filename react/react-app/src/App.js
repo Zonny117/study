@@ -81,9 +81,15 @@ function App() {
   ]);
   let content = null;
   let contextControl = null;
+
+
+
   if(mode==='WELCOME'){
     content = <Article title="Welcome" body="Hello, WEB"></Article>
-  }else if(mode==='READ'){
+  }
+
+  
+  else if(mode==='READ'){
     let title, body = null;
     for(let i =0; i<topics.length; i++){
       if(topics[i].id===id){
@@ -92,8 +98,23 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
-    contextControl = <li><a href={'/update/'+ id} onClick={event => {event.preventDefault();setMode("UPDATE")}}>Update</a></li>
-  }else if(mode === "CREATE"){
+    contextControl = <>
+    <li><a href={'/update/'+ id} onClick={event => {event.preventDefault();setMode("UPDATE")}}>Update</a></li>
+    <li><input type="button" value="Delete" onClick={()=>{
+      const newTopics = [];
+      for(let i=0; i<topics.length;i++){
+        if(topics[i].id !== id){
+          newTopics.push(topics[i]);
+        }
+      }
+      setTopics(newTopics);
+      setMode('WELCOME');
+    }}></input></li>
+    </>
+  }
+  
+  
+  else if(mode === "CREATE"){
     content = <Create onCreate={(_title,_body)=>{
       const newTopic = {id:nextID, title:_title, body:_body};
       const newTopics = [...topics];
@@ -103,7 +124,10 @@ function App() {
       setId(nextID);
       setNextID(nextID+1);
     }}></Create>
-  }else if(mode === "UPDATE"){
+  }
+  
+  
+  else if(mode === "UPDATE"){
     let title, body = null;
     for(let i =0; i<topics.length; i++){
       if(topics[i].id===id){
