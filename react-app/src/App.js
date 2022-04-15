@@ -34,10 +34,15 @@ function Article(props){
 </article>
 }
 
-function Create(){
+function Create(props){
   return <article>
     <h2>Create</h2>
-    <form>
+    <form onSubmit={event=>{
+      event.preventDefault();
+      const title = event.target.title.value;
+      const body = event.target.body.value;
+      props.onCreate(title,body);
+    }}>
       <p><input type="text" name="title" placeholder='title'></input></p>
       <p><textarea name='body' placeholder='body'></textarea></p>
       <p><input type='submit' value='Create'></input></p>
@@ -66,7 +71,9 @@ function App() {
     }
     content = <Article title={title} body={body}></Article>
   }else if(mode === "CREATE"){
-    content = <Create onCreate={(title,body)=>{}}></Create>
+    content = <Create onCreate={(title,body)=>{
+      
+    }}></Create>
   }
 
 
