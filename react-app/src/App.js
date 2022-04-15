@@ -76,7 +76,10 @@ function App() {
       const newTopic = {id:nextID, title:_title, body:_body};
       const newTopics = [...topics];
       newTopics.push(newTopic);
-      setTopics(newTopics);
+      setTopics(newTopics); 
+      setMode("READ");
+      setId(nextID);
+      setNextID(nextID+1);
     }}></Create>
   }
 
