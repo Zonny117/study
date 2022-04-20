@@ -80,4 +80,29 @@ window.onload = function () {
 
     });
 
+  
+
+
+    let modarr = ['.mod1', '.mod2', '.mod3', '.mod4', '.mod5'];
+
+    document.querySelector(".btn_append").addEventListener('click', function () {
+
+
+        
+        document.querySelectorAll(modarr).forEach(function(item){
+            
+            let helpTxt = document.createElement("div");
+
+            helpTxt.className = 'helptxt';
+            helpTxt.innerText = '헬프미';
+            item.append(helpTxt);
+        });
+
+        // for (let i = 0; i < modarr.length; i++) {
+      
+
+        //     document.querySelector(modarr[i]).append(helpTxt);
+        // }
+
+    });
 };
