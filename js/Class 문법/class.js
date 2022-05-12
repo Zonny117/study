@@ -56,3 +56,4 @@ Yoimiya.name;
     따라서, skill에 없는 name 객체를 skill의 prototype에 추가된 name 객체에서 찾는 것.
 */
 
+
