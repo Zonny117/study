@@ -47,5 +47,55 @@ let mynameis = function (이름코드) {
         return '요이미야';
     }
 };
-// console.log(mynameis(1));
-// log 결과 - '아야카'
+// ryongok 클래스는 bas 인터페이스대로 지정되어야함
+class ryongok {
+    constructor(nick, age, job) {
+        this.nick = nick;
+        this.age = age;
+        this.job = job;
+    }
+}
+let 김룡옥 = new ryongok('룡바', 31, '에어컨 설치기사');
+class hard {
+    constructor(job) {
+        this.job = job;
+    }
+    sohard() {
+        console.log(this.job + " 일은 너무 짜증난다.");
+    }
+}
+function ishard(짜증나니) {
+    짜증나니.sohard();
+}
+let work = new hard('에어컨 설치기사');
+ishard(work);
+// employee가 추가된다.
+let 야시로봉행 = {
+    master: "카미사토 아야토",
+    sibling: "카미사토 아야카",
+    employee: "토마"
+};
+// worker의 객체와 ninja의 객체가 합쳐졌다.
+let 진짜야시로봉행 = {
+    master: "카미사토 아야토",
+    sibling: "카미사토 아야카",
+    employee: "토마",
+    jongmal: ['사유', '기타등등']
+};
+/*
+    인터페이스는 인터페이스 뿐만 아니라 클래스도 상속받을 수 있다.
+    단, 클래스의 모든 멤버(public, protected, private)가 상속되지만 구현까지 상속하지는 않는다.
+*/
+// 클래스 선언
+class bbasoony {
+    constructor(org, idol) {
+        this.org = org;
+        this.idol = idol;
+    }
+}
+// 클래스에 추가된 name 객체
+let 라이덴빠순이 = {
+    org: '텐료 봉행',
+    idol: '라이덴 쇼군',
+    name: '쿠죠 사라'
+};

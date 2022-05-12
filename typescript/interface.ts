@@ -71,7 +71,7 @@ interface namecode {
 }
 
 // 변수 mynameis에 인터페이스 namecode 정의 
-let mynameis: namecode = function (이름코드 :number) {
+let mynameis: namecode = function (이름코드: number) {
     if (이름코드 === 1) {
         return '아야카'
     } else if (이름코드 === 2) {
@@ -82,3 +82,130 @@ let mynameis: namecode = function (이름코드 :number) {
 
 // console.log(mynameis(1));
 // log 결과 - '아야카'
+
+
+/* 
+    클래스 인터페이스
+
+    클래스 선언문 implements 뒤에 인터페이스를 지정할 수 있다.
+    프로퍼티 및 메서드는 가질 수 있지만, 인스턴스 생성은 불가능하다.
+*/
+
+
+interface bas {
+    nick: string;
+    age: number;
+    job: string;
+}
+
+// ryongok 클래스는 bas 인터페이스대로 지정되어야함
+class ryongok implements bas {
+
+    constructor(
+        public nick: string,
+        public age: number,
+        public job: string,
+    ) {}
+
+}
+
+let 김룡옥 = new ryongok('룡바', 31, '에어컨 설치기사');
+// log 결과 - ryongok {nick: '룡바', age: 31, job: '에어컨 설치기사'}
+
+
+/* 
+    인터페이스는 프로퍼티뿐만 아니라 메소드도 포함할 수 있다. 
+    단, 모든 메소드는 추상 메소드이어야 한다. 인터페이스를 구현하는 클래스는 인터페이스에서 정의한 프로퍼티와 추상 메소드를 반드시 구현하여야 한다.
+*/
+
+interface comment {
+    job: string;
+    sohard(): void;
+}
+
+class hard implements comment {
+    constructor(
+        public job: string
+    ) {}
+
+    sohard() {
+        console.log(this.job + " 일은 너무 짜증난다.");
+    }
+}
+
+function ishard(짜증나니: comment): void {
+    짜증나니.sohard();
+}
+
+let work = new hard('에어컨 설치기사');
+
+ishard(work);
+
+
+
+/* 
+    인터페이스 상속
+
+    인터페이스는 extends 키워드를 사용하여 인터페이스 또는 클래스를 상속받을 수 있다.
+*/
+
+interface yashiro {
+    master: string;
+    sibling: string;
+}
+
+// yashiro 인터페이스에 상속
+interface worker extends yashiro {
+    employee: string;
+}
+
+// employee가 추가된다.
+let 야시로봉행: worker = {
+    master: "카미사토 아야토",
+    sibling: "카미사토 아야카",
+    employee: "토마"
+}
+
+// 복수의 인터페이스를 상속받을 수도 있다.
+
+interface ninja {
+    jongmal: string[];
+}
+
+//worker, ninja 인터페이스에 상속
+interface realYashiro extends worker, ninja {}
+
+
+// worker의 객체와 ninja의 객체가 합쳐졌다.
+let 진짜야시로봉행: realYashiro = {
+    master: "카미사토 아야토",
+    sibling: "카미사토 아야카",
+    employee: "토마",
+    jongmal: ['사유', '기타등등']
+}
+
+/* 
+    인터페이스는 인터페이스 뿐만 아니라 클래스도 상속받을 수 있다. 
+    단, 클래스의 모든 멤버(public, protected, private)가 상속되지만 구현까지 상속하지는 않는다.
+*/
+
+// 클래스 선언
+class bbasoony {
+    constructor(
+        public org: string,
+        public idol: string
+    ) {}
+}
+
+
+// 클래스에 인터페이스 상속
+interface whom extends bbasoony {
+    name: string;
+}
+
+// 클래스에 추가된 name 객체
+let 라이덴빠순이: whom = {
+    org: '텐료 봉행',
+    idol: '라이덴 쇼군',
+    name: '쿠죠 사라'
+}
