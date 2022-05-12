@@ -27,7 +27,7 @@ if (제목 instanceof Element) {
 // 정말 확실할때만 사용.
 // let 제목 = document.querySelector('#title') as Element;
 //optional chaining 방식
-// 변수에 해당 메서드가 있으면 출력, 없으면 undefined를 출력한다.
+// 변수에 해당 속성이 있으면 출력, 없으면 undefined를 출력한다.
 if ((제목 === null || 제목 === void 0 ? void 0 : 제목.innerHTML) != undefined) {
     제목.innerHTML = '옵셔널체이닝';
 }
@@ -35,3 +35,26 @@ if ((제목 === null || 제목 === void 0 ? void 0 : 제목.innerHTML) != undefi
 //   "strictNullChecks": true 옵션 삭제 방식
 // null 값을 걸러내지 않는 방법이지만, 엄격한 탐색 과정이 필요해서 사용하는
 // 타입스크립트상 추천되지 않는 방법이다.
+/*
+    instanceof 방식 주의점
+    a태그의 href를 바꾸기 위해 instanceof Element라고 지정을 해줘도 오류가 난다.
+    이는 Element 속성중에 href가 없기 떄문인데, 보다 더 명확하게 지정을 해줄 필요가 있다.
+
+    HTMLAnchorElement라고 지정해줌으로써 link는 a태그임을 명시하고 있다.
+    a태그 속성중엔 당연히 href가 있기 때문에, 코드가 실행된다.
+
+    이밖에도 button, heading 등도 지정할 수 있다.
+*/
+let link = document.querySelector(".link");
+if (link instanceof HTMLAnchorElement) {
+    link.href = "https://kakao.com";
+}
+/*
+    이벤트 리스너
+
+    ? 기호를 붙여 addEventListener 속성이 있는지 없는지 파악할 수 있다.
+*/
+let button = document.querySelector("#button");
+button === null || button === void 0 ? void 0 : button.addEventListener('click', function () {
+    console.log("?를 입력해도 실행된다.");
+});
