@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("button").click(function () {
+                /* 
+                    A.load(B) A에 B의 내용을 불러오기.
+
+                    responseTxt : 서버에 요청이 완료된 결과 내용(패러미터)
+                    statusTxt : 서버에 요청을 보내면, 요청의 상태로 표현
+                    staus : 파일의 상태 있으면 200, 없으면 404, 권한 없음 403
+                    xhr : 요청한 오브젝트
+
+                    $("#dvi1").load('경로', 요청이 완료되면 할 일(콜백) function(responseTxt, statusTxt, xhr){...});
+                
+                */
+                // $("#div1").load('demo_test.txt p');
+
+                // $("#div1").load('demo_test.txt', function (responseTxt, statusTxt, xhr) {
+                //     if(xhr.status == 200 && statusTxt == "success"){
+                //         alert("파일이 준비 되었습니다.");
+                //     }
+                //     else{
+                //         alert("파일이 없습니다.");
+                //     }
+                // });
+
+
+                /* 
+                    $.ajax({경로, 동기화 여부, 요청이 성공하면 할일})
+                    $.ajax({url:'파일경로', async: false, success:function(result){...}})
+                */
+
+                $.ajax({
+                    url: "demo_test.txt",
+                    async: false,
+                    success: function (result) {
+                        $("#div1").html(result);
+                    }
+                });
+
+                $.ajax({
+                    url: 'demo.js',
+                    dataType: "script"
+                });
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="div1">
+        <h2>Let jQuery AJAX Change This Text</h2>
+    </div>
+
+    <button>Get External Content</button>
+
+</body>
+
+</html>
