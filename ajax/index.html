@@ -47,7 +47,6 @@
     fetch('list').then(function (response) {
       response.text().then(function (text) {
         //     <li><a href="#!html" onclick="fetchPage('html')">HTML</a></li>
-
         var items = text.split(',');
         var i = 0;
         var tags = '';
