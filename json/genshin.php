@@ -1,4 +1,4 @@
 <?php
-$yoimiya = ["name/요이미야", "skill/염초 정화의 춤", "burst/운금 윤간초"];
-echo implode (',', $yoimiya);
+$yoimiya = ["요이미야", "염초 정화의 춤", "운금 윤간초"];
+echo json_encode($yoimiya);
 ?>
