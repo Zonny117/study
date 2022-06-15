@@ -31,7 +31,12 @@
 
 <body>
     <!-- form 안에서 엔터를 누를시 input이 더이상 존재하지 않는다면 자동으로 form을 submit한다. -->
-    <div class="dim"></div>
+    <div class="dim">
+        <div class="loadBx">
+            <img src="img/load.gif" alt="로딩이미지">
+            <span>Loading...</span>
+        </div>
+    </div>
     <div class="content">
         <h1 id="greeting" class="hidden"></h1>
         <h2 id="clock">00:00</h2>
@@ -64,8 +69,16 @@
     <script src="js/weather.js"></script>
 
     <script>
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        function vh() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        vh();
+
+        window.addEventListener('resize', function () {
+            vh();
+        });
     </script>
 </body>
 
