@@ -33,7 +33,7 @@ li {
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     background-color: rgb(0, 0, 0);
     z-index: 1;
     transition: background 1s ease-in-out;
@@ -50,7 +50,7 @@ li {
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     object-fit: cover;
 }
 
@@ -62,7 +62,7 @@ li {
     align-items: center;
     justify-content: center;
     z-index: 1;
-    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     color: #fff;
     max-width: 750px;
     margin: 0 auto;
