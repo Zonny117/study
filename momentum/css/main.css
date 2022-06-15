@@ -34,9 +34,16 @@ li {
     left: 0;
     width: 100%;
     min-height: 100vh;
-    background-color: rgba(0, 0, 0, 0.521);
+    background-color: rgb(0, 0, 0);
     z-index: 1;
+    transition: background 1s ease-in-out;
 }
+
+
+.dim.on {
+    background-color: rgba(0, 0, 0, 0.50);
+}
+
 
 .bgImg {
     position: fixed;
@@ -61,6 +68,12 @@ li {
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.content.on {
+    opacity: 1;
 }
 
 h1 {
