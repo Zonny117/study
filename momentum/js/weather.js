@@ -16,5 +16,5 @@ function onGeoOk(position) {
 }
 
 function onGeoError() {
-    alert("can't find you. No weather for you.");
+    alert("Allow to get information from your location.");
 }
