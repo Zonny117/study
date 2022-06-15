@@ -157,7 +157,7 @@ button {
     }
 
     .formbx {
-        width: 100%;
+        width: 80%;
         margin-top: 15px;
     }
 
@@ -172,7 +172,6 @@ button {
     #todo-list {
         display: flex;
         flex-direction: column;
-        align-items: center;
     }
 
     #quote {
