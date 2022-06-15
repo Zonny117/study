@@ -20,11 +20,12 @@ function onSubmit(e) {
 
 function paintGreetings(username) {
     greeting.classList.remove(HIDDEN_CLASSNAME);
-
     if (hour >= 5 && hour < 12) {
         greeting.innerText = `Good morning, ${username}`;
-    } else {
+    } else if (hour >= 12 && hour < 22) {
         greeting.innerText = `Good afternoon, ${username}`;
+    } else if (hour >= 22 || hour < 5) {
+        greeting.innerText = `Good Night, ${username}`;
     }
 
 };
