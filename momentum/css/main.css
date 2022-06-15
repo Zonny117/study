@@ -26,6 +26,9 @@ li {
 
 li{
     position: relative;
+    padding-right: 30px;
+    box-sizing: border-box;
+    text-indent: -16px;
 }
 
 li+li{
@@ -117,7 +120,7 @@ li button{
     color: #fff;
     max-width: 750px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 50px 20px;
     box-sizing: border-box;
     opacity: 0;
     transition: opacity 1s ease-in-out;
@@ -235,6 +238,8 @@ button {
     #todo-list {
         display: flex;
         flex-direction: column;
+        width: 80%;
+        margin: 0 auto;
     }
 
     #quote {
@@ -243,5 +248,9 @@ button {
 
     #quote span {
         margin-bottom: 10px;
+    }
+
+    li{
+        font-size: 14px;
     }
 }
