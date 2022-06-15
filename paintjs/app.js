@@ -7,13 +7,14 @@ const save = document.querySelector("#jsSave");
 
 
 const DEFAULT_COLOR = "#2c2c2c";
+const CANVAS_SIZE = 600;
 
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = CANVAS_SIZE;
+canvas.height = CANVAS_SIZE;
 
 
 ctx.fillStyle = "white";
-ctx.fillRect(0, 0, 600, 600);
+ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 ctx.strokeStyle = DEFAULT_COLOR;
 ctx.fillStyle = DEFAULT_COLOR;
 ctx.lineWidth = 2.5;
@@ -67,7 +68,7 @@ function handleModeClick() {
 
 function handleCanvasClick() {
     if (filling) {
-        ctx.fillRect(0, 0, 600, 600);
+        ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     }
 }
 
