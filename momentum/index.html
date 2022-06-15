@@ -11,25 +11,28 @@
 
 <body>
     <!-- form 안에서 엔터를 누를시 input이 더이상 존재하지 않는다면 자동으로 form을 submit한다. -->
-    <form id="login-form" class="hidden">
-        <input required maxlength="15" type="text" placeholder="What is your name?">
-        <input type="submit" value="Log In"></input>
-    </form>
-
-    <h2 id="clock">00:00</h2>
-
-    <h1 id="greeting" class="hidden"></h1>
-    <form id="todo-form">
-        <input type="text" placeholder="Write a To Do and Press Enter" required>
-    </form>
-    <ul id="todo-list"></ul>
-    <div id="quote">
-        <span></span>
-        <span></span>
-    </div>
-    <div id="weather">
-        <span></span>
-        <span></span>
+    <div class="dim"></div>
+    <div class="content">
+        <h1 id="greeting" class="hidden"></h1>
+        <h2 id="clock">00:00</h2>
+        <div id="weather">
+            <span class="city"></span>
+            <span class="weather"></span>
+        </div>
+        <div class="formbx">
+            <form id="login-form" class="hidden">
+                <input required maxlength="15" type="text" placeholder="What is your name?">
+                <input type="submit" value="Log In" class="hidden"></input>
+            </form>
+            <form id="todo-form">
+                <input type="text" placeholder="Write a To Do and Press Enter" required>
+            </form>
+            <ul id="todo-list"></ul>
+        </div>
+        <div id="quote">
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
 

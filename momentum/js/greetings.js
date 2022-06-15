@@ -5,6 +5,8 @@ const greeting = document.querySelector("#greeting");
 const HIDDEN_CLASSNAME = "hidden";
 const USERNAME_KEY = 'username';
 
+const hour = new Date().getHours();
+
 function onSubmit(e) {
     e.preventDefault();
     loginForm.classList.add(HIDDEN_CLASSNAME);
@@ -18,7 +20,13 @@ function onSubmit(e) {
 
 function paintGreetings(username) {
     greeting.classList.remove(HIDDEN_CLASSNAME);
-    greeting.innerText = `Hello ${username}`;
+
+    if (hour >= 5 && hour < 12) {
+        greeting.innerText = `Good morning, ${username}`;
+    } else {
+        greeting.innerText = `Good afternoon, ${username}`;
+    }
+
 };
 
 
