@@ -10,34 +10,71 @@
 
 <script type="text/babel">
     const root = document.querySelector("#root");
-    function App(){
-        const [minutes, setMinutes] = React.useState();
+    function MinutesToHours(){
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
         const onChange = (e) => {
-            setMinutes(e.target.value);
+            setAmount(e.target.value);
         };
+        const reset = () => setAmount(0);
+        const onInvert = () => {
+            reset();
+            setInverted((current) => !current)
+        };
+        return(        
+        <div>
+            <div>
+                <label htmlFor="minutes">Minutes</label>
+                <input value={inverted ? amount * 60 : amount} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled={inverted}></input>
+            </div>
+            <div>
+                <label htmlFor="hours">Hours</label>
+                <input value={inverted ? amount : Math.round(amount / 60)} id="hours" placeholder="Hours" type="number" disabled={!inverted} onChange={onChange}></input>
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+    )};
 
-    // const [counter, setCounter] = React.useState(0);
-    // function onClick(){
-    //     // setCounter(counter + 1);
 
-    //     /* 
-    //         변수 counter가 다른 곳에서 값이 변경될 경우 원하는
-    //         state 값을 얻지 못할 수 있다.
-    //         그럴땐, 스테이트 변경값을 함수로 전달하면된다.
-    //         함수의 인자는 스테이트가 선언된 시점의 값을 
-    //         받아올 수 있다.
-    //     */
-    //     setCounter((current)=>current+1);
-    // }
-    return(        
-    <div>
-        <h1>super Converter</h1>
-        <label htmlFor="minutes">Minutes</label>
-        <input value={minutes} id="minutes" placeholder="Minutes" type="number" onChange={onChange}></input>
-        <h4>You want to convert? {minutes}</h4>
-        <label htmlFor="hours">Hours</label>
-        <input id="hours" placeholder="Hours" type="number"></input>
-    </div>
+    function KmToMiles(){
+        return (
+            <div>
+                <div>
+                    <label htmlFor="km">kilometers</label>
+                    <input id="km" placeholder="kilometers" type="number"></input>
+                </div>
+                <div>
+                    <label htmlFor="mile">Miles</label>
+                    <input id="mile" placeholder="Miles" type="number"></input>
+                </div>
+                <button>Reset</button>
+                <button>Invert</button>
+            </div>
+        )
+           
+    }
+
+
+
+    function App(){
+        const [index, setIndex] = React.useState("xx");
+        const onSelect = function(e){
+            setIndex(e.target.value);
+        };
+        return(        
+        <div>
+            <h1>Super Converter</h1>
+            <select value={index} onChange={onSelect}>
+                <option value="xx">Select your unit</option>
+                <option value="0">Minutes & Hours</option>    
+                <option value="1">Km & Miles</option>    
+            </select>
+            <hr/>
+            {index === "xx" ? "please select your unit" : null}
+            {index === "0" ? <MinutesToHours/> : null}
+            {index === "1" ? <KmToMiles/> : null}
+        </div>
     )};
     ReactDOM.render(<App></App>, root);
 </script>
