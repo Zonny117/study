@@ -11,16 +11,32 @@
 <script type="text/babel">
     const root = document.querySelector("#root");
     function App(){
-    const [counter, modifier] = React.useState(0);
-    
+        const [minutes, setMinutes] = React.useState();
+        const onChange = (e) => {
+            setMinutes(e.target.value);
+        };
+
+    // const [counter, setCounter] = React.useState(0);
+    // function onClick(){
+    //     // setCounter(counter + 1);
+
+    //     /* 
+    //         변수 counter가 다른 곳에서 값이 변경될 경우 원하는
+    //         state 값을 얻지 못할 수 있다.
+    //         그럴땐, 스테이트 변경값을 함수로 전달하면된다.
+    //         함수의 인자는 스테이트가 선언된 시점의 값을 
+    //         받아올 수 있다.
+    //     */
+    //     setCounter((current)=>current+1);
+    // }
     return(        
     <div>
-        <h3>
-          total click : 0
-        </h3>
-        <button>
-           click me 
-        </button>
+        <h1>super Converter</h1>
+        <label htmlFor="minutes">Minutes</label>
+        <input value={minutes} id="minutes" placeholder="Minutes" type="number" onChange={onChange}></input>
+        <h4>You want to convert? {minutes}</h4>
+        <label htmlFor="hours">Hours</label>
+        <input id="hours" placeholder="Hours" type="number"></input>
     </div>
     )};
     ReactDOM.render(<App></App>, root);
