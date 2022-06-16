@@ -51,7 +51,9 @@
 
         function checkDisable(){
             reset();
-            setInvert(!invert);
+            setInvert(function(val){
+                return !val
+            });
         }
 
         return (
