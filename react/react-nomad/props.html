@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<body>
+    <div id="root"></div>
+</body>
+<script src=" https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    const root = document.querySelector("#root");
+
+    function Btn({text, fontSize=14}){
+        return(
+            <button style={{
+                backgroundColor:"tomato",
+                color:"white",
+                padding:"10px 20px",
+                border:0,
+                borderRadius:10,
+                fontSize
+            }}>
+                {text}
+            </button>
+        )
+    }
+    // 리액트 버전의 타입스크립트라고 생각하면된다. 컴포넌트에 제공되는 props의 데이터 타입을 지정하여, 코드를 엄격하게 관리할 수 있다.
+    // props의 데이터가 지정된 값이랑 다를 경우, 콘솔창 경고 메시지를 통해 오류를 확인할 수 있다.
+    Btn.propTypes = {
+        // 대문자 주의 PropTypes로 선언하고, 데이터 타입을 지정한다. (옵션 중에는 isRequired가 있는데, 필수로 받아야할 props를 의미한다.)
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number
+    }
+
+    function App(){
+        const [value, setValue] = React.useState("Save Changes");
+        function chageValue(){
+            setValue("Revert Changes");
+        }
+    return(        
+        <div>
+            <Btn text="Save Changes" fontSize={18}/>
+            <Btn text="Continue"/>
+        </div>
+    )};
+    ReactDOM.render(<App/>, root);
+</script>
+
+</html>
