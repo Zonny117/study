@@ -10,6 +10,7 @@ body {
 
 html {
     font-family: 'Acme', sans-serif;
+    word-break: break-all;
 }
 
 body {
@@ -24,36 +25,40 @@ li {
     list-style: none;
 }
 
-li{
+li {
     position: relative;
     padding-right: 30px;
     box-sizing: border-box;
     text-indent: -16px;
 }
 
-li+li{
+li+li {
     margin-top: 10px;
 }
 
-li::before{
+li::before {
     content: '·';
     vertical-align: 1px;
     margin-right: 10px;
 }
 
-li button{
+li button {
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     padding: 0;
     right: 0;
     width: 22px;
     height: 22px;
-    text-align: center;
     line-height: 20px;
+    text-align: center;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.438);
     font-size: 20px;
     font-weight: bold;
     color: #b90303bd;
+    border: none;
+    cursor: pointer;
 }
 
 .hidden {
@@ -71,7 +76,7 @@ li button{
     transition: background 1s ease-in-out;
 }
 
-.dim .loadBx{
+.dim .loadBx {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -80,16 +85,16 @@ li button{
     text-align: center;
 }
 
-.dim.on .loadBx{
+.dim.on .loadBx {
     display: none;
 }
 
-.loadBx span{
+.loadBx span {
     display: block;
     margin-top: 10px;
 }
 
-.loadBx img{
+.loadBx img {
     width: 50px;
     height: 50px;
 }
@@ -196,12 +201,6 @@ input::placeholder {
     margin-bottom: 20px;
 }
 
-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
 #todo-list {
     margin-top: 20px;
 }
@@ -252,7 +251,7 @@ button {
         margin-bottom: 10px;
     }
 
-    li{
+    li {
         font-size: 14px;
     }
 }
