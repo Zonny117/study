@@ -1,23 +1,31 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 function App() {
-  const [todo, setTodo] = useState('');
-  const onChange = event => setTodo(event.target.value);
-  const onSubmit = event => {
-    event.preventDefault();
-    console.log(todo);
-  };
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    fetch('https://api.coinpaprika.com/v1/tickers')
+      .then(response => response.json())
+      .then(json => {
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          value={todo}
-          type="text"
-          placeholder="Write your todo"
-        ></input>
-        <button>Add To Do</button>
-      </form>
+      <h1>The Coins! {loading ? null : `(${coins.length})`}</h1>
+      {loading ? (
+        <strong>Loading....</strong>
+      ) : (
+        <select>
+          {coins.map(coin => (
+            <option>
+              {coin.name} ({coin.symbol}) : ${coin.quotes.USD.price} USD
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 }
