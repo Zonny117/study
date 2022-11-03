@@ -43,14 +43,16 @@ gsap.from('.svg2', {
 
 gsap.fromTo('.svg3', {
     // from 먼저 설정
-    duration: 1,
     x: -150,
     backgroundColor: 'blue',
     borderRadius: '50%'
 }, {
     // to 설정
-    duration: 1,
-    x: 150,
+    duration: 2,
+    repeat:-1,
+    yoyo:true,
+    x: 300,
+    ease:'expo.out',
     backgroundColor: 'red',
     borderRadius: '0%'
 });
@@ -66,4 +68,20 @@ gsap.from('.circle', {
     ease: "bounce",
     /* 일정 간격으로 순차적으로 실행 */
     stagger: '0.5'
+})
+
+let position = {
+    x: 0,
+    rotation: 0,
+    backgroundColor: '#fff',
+};
+
+/* 
+    gsap.set()은 해당 요소를 세팅한다.
+ */
+gsap.set('.rect',{
+    duration:4,
+    x:200,
+    rotation:360,
+    backgroundColor:'#ff0'
 })
