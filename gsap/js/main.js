@@ -34,8 +34,11 @@ gsap.from('.svg2', {
     결과적으로 순차적으로 애니메이션이 실행됨.
 */
 gsap.from('.circle', {
-    duration: 3,
-    y: 200,
+    duration: 1,
+    /* 랜덤 속성 */
+    y: 'random(-200, 200)',
+    opacity:0,
     ease: "bounce",
+    /* 일정 간격으로 순차적으로 실행 */
     stagger: '0.5'
 })
