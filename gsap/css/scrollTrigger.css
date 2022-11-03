@@ -17,14 +17,14 @@ body {
     font-weight: bold;
 }
 
-.fullpage:first-child {
+.a {
     background-color: black;
 }
 
-.fullpage:nth-child(2) {
+.b {
     background-color: lightsalmon;
 }
 
-.fullpage:nth-child(3) {
+.c {
     background-color: lightcoral;
 }
