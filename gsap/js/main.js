@@ -12,6 +12,18 @@
     
     ● 역행 애니메이션 - from 메서드로 작동
     - 설정된 옵션이 선택자의 지점으로 도달하기까지 역행으로 애니메이션이 실행된다.
+
+    ● fromTo 메서드
+    - 현재 선택자의 위치를 기준으로 from과 to를 설정
+
+    ※ gsap에서는 몇몇 css 속성들을 줄여쓴다.
+    대표적으로 transform에서 translateX를 x로만 표기한다.
+
+    ※ 옵션 수치 단위에는 여러가지를 넣을 수 있다.
+    예를 들어 x:20은 x축으로 20픽셀 우로 이동이지만,
+    xPercent:20은 x축으로 20퍼센트 우로 이동이 된다.
+    x:'20vw' 등 뷰포트 단위,
+    x:() => window.innerWidth / 2 등 계산식으로도 가능.
 */
 gsap.to(".svg", {
     duration: 2,
@@ -29,6 +41,19 @@ gsap.from('.svg2', {
     ease: 'power4'
 })
 
+gsap.fromTo('.svg3', {
+    // from 먼저 설정
+    duration: 1,
+    x: -150,
+    backgroundColor: 'blue',
+    borderRadius: '50%'
+}, {
+    // to 설정
+    duration: 1,
+    x: 150,
+    backgroundColor: 'red',
+    borderRadius: '0%'
+});
 /* 
     공통 클래스를 주고 stagger로 지연시간을 줄 수 있다.
     결과적으로 순차적으로 애니메이션이 실행됨.
@@ -37,7 +62,7 @@ gsap.from('.circle', {
     duration: 1,
     /* 랜덤 속성 */
     y: 'random(-200, 200)',
-    opacity:0,
+    opacity: 0,
     ease: "bounce",
     /* 일정 간격으로 순차적으로 실행 */
     stagger: '0.5'
