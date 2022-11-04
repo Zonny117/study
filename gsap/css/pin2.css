@@ -1,0 +1,50 @@
+@charset "utf-8";
+@import url(reset.css);
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.fullpage {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.a {
+    background-color: black;
+}
+
+.b {
+    background-color: lightsalmon;
+}
+
+.c {
+    background-color: lightcoral;
+}
+
+.d {
+    background-color: lightblue;
+}
+
+.e {
+    background-color: lightgrey;
+}
+
+.rect {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    /* outline: 2px dotted red; */
+
+}

@@ -20,6 +20,7 @@ tl.from('.b', {
     yPercent: -100
 });
 
+// 스크롤 트리거 새 인스턴스 생성
 ScrollTrigger.create({
     animation: tl,
     trigger: '#pinContainer',
@@ -29,6 +30,4 @@ ScrollTrigger.create({
     scrub: 2,
     pin: true,
     markers: true,
-    aniticipatePin: 1,
-
 })
