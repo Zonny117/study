@@ -9,7 +9,8 @@
 
     - endTrigger:'선택자' => 해당 선택자 위치를 기준으로 트리거를 중지한다.
 
-    - toggleActions: 옵션1(트리거 영역 위에서부터 들어올시) 옵션2(트리거 영역 위에서부터 완전히 벗어날시) 옵션3(트리거 영역 아래에서부터 들어올때) 옵션4(트리거 영역 아래서부터 완전히 벗어날때)
+    - toggleActions: 
+    => 옵션1(트리거 영역 위에서부터 들어올시) 옵션2(트리거 영역 위에서부터 완전히 벗어날시) 옵션3(트리거 영역 아래에서부터 들어올때) 옵션4(트리거 영역 아래서부터 완전히 벗어날때)
 
     => 옵션은 아래와 같다.
 
@@ -38,16 +39,71 @@
     
     - markers: boolean => 스크롤 트리거 작동 지점을 확인 할 수 있다. 개발시 유용함.
 
+    - scrub: 
+    => 트리거가 설정된 영역을 지날때 스크롤 움직임에 맞춰서 애니메이션이 실행된다. 기본값은 false이며 true시 linear한 움직임을 보이며,
+    수치를 입력할 경우 높을수록 더욱 스무스하게 움직인다.
+        
+    - pin:
+    => 스크롤시 해당 요소를 고정 시킨다. start와 end 지점을 이용해 고정 영역을 조정할 수 있다. 값을 true로 둘 경우 트리거로 설정된 요소를 따라가며,
+    별도로 특정 요소를 고정시킬 수도 있다.
 */
 
-gsap.to('.b', {
+// 토글액션
+gsap.to('.b .rect', {
     scrollTrigger: {
         trigger: '.b',
+        // 위아래 방향 영역 벗어날때 일시정지, 스크롤 아래방향 재시작, 위방향 반대로 재생
         toggleActions: 'restart pause reverse pause',
-        start: 'center center',
-        end: '90% 10%',
-        markers: true,
+        // 시작 지점 : 트리거 요소의 top, 뷰포트의 top 
+        start: 'top top',
+        // 끝 지짐 : 트리거 요소의 bottom, 뷰표트의 top
+        end: 'bottom top',
+        // 마커표시
+        // markers: true,
     },
     duration: 2,
-    backgroundColor: '#ccc'
+    x: 300,
+});
+
+// 스크럽
+gsap.to('.c .rect', {
+    scrollTrigger: {
+        trigger: '.c .rect',
+        // 스크럽 스무스 강도 2
+        scrub: 2,
+        start: 'top bottom',
+        end: 'bottom top',
+        // markers: true,
+    },
+    duration: 2,
+    x: 600,
+    rotation: 360,
+});
+
+// 타임라인을 이용한 스크럽
+const scrubTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: '.d',
+        // 스크럽 true
+        scrub: true,
+        pin: '.d .rect',
+        start: '20% top',
+        end: '80% center',
+        markers: true,
+    }
+});
+
+scrubTl.to('.d .rect', {
+    x: 600,
+    rotation: 360,
+    backgroundColor: '#ff0'
+});
+scrubTl.to('.d .rect', {
+    x: 300,
+    rotation: 150,
+});
+scrubTl.to('.d .rect', {
+    x: 0,
+    rotation: 0,
+    backgroundColor: '#f00'
 });
