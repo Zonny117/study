@@ -1,0 +1,43 @@
+@charset "utf-8";
+@import url(reset.css);
+
+
+html,
+body {
+    width: 100%;
+}
+
+#container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper {
+    width: 50%;
+    overflow: hidden;
+}
+
+.swiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper .swiper-slide {
+    cursor: pointer;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    z-index: 1;
+    display: none;
+}
