@@ -5,6 +5,7 @@
 html,
 body {
     width: 100%;
+    background-color: #000;
 }
 
 #container {
@@ -17,7 +18,8 @@ body {
 }
 
 .swiper {
-    width: 50%;
+    width: 600px;
+    height: 400px;
     overflow: hidden;
 }
 
@@ -27,17 +29,43 @@ body {
     object-fit: cover;
 }
 
+.swiper p {
+    display: none;
+}
+
 .swiper .swiper-slide {
     cursor: pointer;
 }
 
 .popup {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    max-height: 100vh;
+    background-color: #fff;
     z-index: 1;
-    display: none;
+    padding: 50px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 999;
+    visibility: hidden;
+}
+
+.popup img {
+    width: 100%;
+}
+
+.popup p {
+    padding: 20px 0;
+    box-sizing: border-box;
+    line-height: 160%;
+    opacity: 0;
+}
+
+.btn_close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }

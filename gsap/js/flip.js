@@ -3,47 +3,87 @@ const swiper = new Swiper('.swiper', {
     slidesPerView: 3,
 });
 
-const slides = document.querySelectorAll(".swiper .swiper-slide");
+const slides = gsap.utils.toArray('.swiper-slide'),
+    popup = document.querySelector(".popup"),
+    popupImg = document.querySelector(".popup img"),
+    popupTxt = document.querySelector(".popup p"),
+    btn_close = document.querySelector(".btn_close");
 
-const popup = document.querySelector(".popup");
+
+gsap.set(popupTxt, {
+    yPercent: 100,
+});
 
 slides.forEach(function (item) {
     item.addEventListener('click', function () {
-        const img = item.children[0];
+        const item_img = item.querySelector('img').src;
+        const item_txt = item.querySelector('p').innerText;
 
-        console.log(img)
+        popupImg.addEventListener('load', imgLoad)
+        popupImg.src = item_img;
+        popupTxt.innerText = item_txt;
 
-        const siblings = [...slides].filter(function (el) {
-            return item !== el
-        });
 
-        gsap.to(siblings, {
-            duration: 2,
-            opacity: 0,
-            onComplete: () => {
-                gsap.set(img, {
-                    height: 'auto'
+        function imgLoad() {
+            Flip.fit(popup, item, {
+                scale: true,
+                fitChild: popupImg,
+            });
+            const state = Flip.getState(popup);
+
+            gsap.set(popup, {
+                clearProps: true,
+            });
+
+            gsap.set(popup, {
+                visibility: 'visible',
+            });
+
+            Flip.from(state, {
+                scale: true,
+                duration: 1.5,
+            }).to(popupTxt, {
+                yPercent: 0,
+                ease: 'power4',
+                opacity: 1,
+            });
+
+            popupImg.removeEventListener('load', imgLoad);
+
+            btn_close.addEventListener('click', function () {
+                gsap.set(popup, {
+                    overflow: 'hidden',
                 });
 
+                const state2 = Flip.getState(popup);
 
-                Flip.fit('.swiper', '.popup', {
-                    duration: 2,
-                    fitChild: img,
-                    ease: 'slow',
-                    absolute: true,
+                Flip.fit(popup, item, {
+                    scale: true,
+                    fitChild: popupImg,
+                });
+
+                const tl = gsap.timeline();
+
+                tl.to(popupTxt, {
+                    yPercent: 100,
+                    opacity: 0,
+                    padding: 0,
+                }).to(popup, {
+                    opacity: 0,
                     onComplete: () => {
-                        this.addEventListener('click', function () {
-                            console.log(this)
-                            Flip.killFlipsOf('.swiper', '.popup');
+                        gsap.set(popup, {
+                            visibility: 'hidden'
                         });
-                    },
+                    }
                 });
 
-            }
-        });
 
-
-
-
+                Flip.from(state2, {
+                    padding: 0,
+                    scale: true,
+                    ease: 'circ.out',
+                });
+            });
+        };
     });
-})
+});
