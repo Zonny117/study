@@ -11,12 +11,28 @@
     - end: 애니메이션 끝 지점
 */
 
+// svg 밖 요소는 애니메이션 시작 시점에 정렬이 될뿐 리사이즈시에는 path를 이탈한다.
 gsap.to('.div', {
     duration: 5,
     ease: 'circ.inOut',
     motionPath: {
         path: '.path',
         align: '.path',
+        autoRotate: true,
+        alignOrigin: [0.5, 0.5],
+        start: 0,
+        end: 0.5,
+    },
+});
+
+
+// 같은 svg 안에 있는 요소는 리사이즈시 path를 같이 따라간다
+gsap.to('.circle', {
+    duration: 5,
+    ease: 'circ.inOut',
+    motionPath: {
+        path: '.path2',
+        align: '.path2',
         autoRotate: true,
         alignOrigin: [0.5, 0.5],
         start: 0,
