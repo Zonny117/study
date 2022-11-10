@@ -4,7 +4,7 @@
     scrollTrigger:'선택자'
     - 특정 요소 지정시 스크롤이 선택자 위치에 도착하면 애니메이션 작동
 
-    sctollTrigger:{옵션}
+    scrollTrigger:{옵션}
     - trigger:'선택자' => 해당 선택자를 기준으로 트리거를 작동한다.
 
     - endTrigger:'선택자' => 해당 선택자 위치를 기준으로 트리거를 중지한다.

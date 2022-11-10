@@ -55,6 +55,10 @@ slides.forEach(function (item) {
                     overflow: 'hidden',
                 });
 
+                gsap.set(popupImg,{
+                    objectFit:'cover'
+                })
+
                 const state2 = Flip.getState(popup);
 
                 Flip.fit(popup, item, {
