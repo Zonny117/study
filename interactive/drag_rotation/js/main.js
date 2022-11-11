@@ -20,13 +20,18 @@ section.addEventListener('mousedown', function (e) {
     section.addEventListener('mousemove', rotate);
 
     function rotate(e) {
-        console.log((e.clientX - x) / sensitivity);
 
         calc = (e.clientX - x) / sensitivity;
 
-        book.style.transform = `rotateY(${calc + prev}deg)`;
+        // book.style.transform = `rotateY(${calc + prev}deg)`;
 
         book.style.cursor = 'grabbing';
+
+        gsap.to(book, {
+            rotateY: `${calc + prev}`,
+            ease: 'elastic.out',
+            duration: 2
+        });
     };
 
     prev += calc;
@@ -35,5 +40,32 @@ section.addEventListener('mousedown', function (e) {
         section.removeEventListener('mousemove', rotate);
 
         body.style.cursor = 'default';
+    });
+});
+
+
+section.addEventListener('touchstart', function (e) {
+
+
+    const x = e.changedTouches[0].pageX;
+
+    section.addEventListener("touchmove", rotate);
+
+    function rotate(e) {
+        calc = (e.touches[0].pageX - x) / sensitivity;
+
+        // book.style.transform = `rotateY(${calc + prev}deg)`;
+
+        gsap.to(book, {
+            rotateY: `${calc + prev}`,
+            ease: 'elastic.out',
+            duration: 2
+        });
+    }
+
+    prev += calc;
+
+    window.addEventListener('touchend', function () {
+        section.removeEventListener('touchmove', rotate);
     });
 });
