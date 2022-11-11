@@ -10,7 +10,7 @@ let calc = 0;
 
 
 // 드래그 감도
-const sensitivity = 4;
+const sensitivity = 2;
 
 section.addEventListener('mousedown', function (e) {
 
@@ -29,7 +29,7 @@ section.addEventListener('mousedown', function (e) {
 
         gsap.to(book, {
             rotateY: `${calc + prev}`,
-            ease: 'elastic.out',
+            ease: 'power4.out',
             duration: 2
         });
     };
@@ -47,7 +47,7 @@ section.addEventListener('mousedown', function (e) {
 section.addEventListener('touchstart', function (e) {
 
 
-    const x = e.changedTouches[0].pageX;
+    const x = e.touches[0].pageX;
 
     section.addEventListener("touchmove", rotate);
 
