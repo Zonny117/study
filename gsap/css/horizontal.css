@@ -14,14 +14,14 @@ body{
 #pinContainer {
     display: flex;
     flex-wrap: nowrap;
-    width: 500%;
+    width: 1000%;
     height: 100%;
 }
 
 .fullpage {
     position: relative;
     display: flex;
-    width: 100%;
+    width: 200%;
     height: 100%;
     align-items: center;
     justify-content: center;
