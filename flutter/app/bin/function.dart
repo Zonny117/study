@@ -4,9 +4,13 @@ void main() {
   int result = addNumbers(10, 30, 50);
 
   // 네임드 파라미터이기 때문에, 순서가 섞여도 상관없다. z는 옵셔널로 기본값이 30이지만, 인자로 40을 받아 덮어쓴 형태다.
-  addNumbers2(y: 20, z: 40, x:10);
+  addNumbers2(y: 20, z: 40, x: 10);
 
   print(result);
+
+  int result2 = addNumbers3(20, y: 50);
+
+  print(result2);
 }
 /* 
   [패러미터 종류]
@@ -59,3 +63,12 @@ addNumbers2({
     print('홀수입니다.');
   }
 }
+
+/* 
+ 화살표 함수
+  함수()=>리턴값;
+ 리턴값을 축약해서 표시할 수 있다.
+ */
+
+// x는 앞에 무조건 있어야되는 포지셔널, y는 순서가 중요하지 않은 네임드, z는 없어도 되는 옵셔널
+int addNumbers3(int x, {required int y, int z = 20}) => x + y + z;
