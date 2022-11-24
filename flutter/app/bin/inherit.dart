@@ -18,7 +18,22 @@ void main() {
   GirlGroup red = GirlGroup('레드', 5);
 
   red.sayFemale();
+
+  print('----------타입 비교--------');
+
+  print(apink is Idol); //트루가 나옴 Idol 인스턴스이기 떄문
+  print(apink is GirlGroup); // 펄스, 자식 클래스는 받을 수 없다.
+  print(apink is BoyGroup);  // 펄스, 자식 클래스는 받을 수 없다.
+
+
+  print('----------타입 비교2--------');
+  print(bas is Idol); // 트루가 나옴, Idol 클래스가 부모이기 때문
+  print(bas is BoyGroup); // 트루, BoyGroup 인스턴스이기 때문
+  print(bas is GirlGroup); //펄스, 자식 클래스 간 공유는 불가능하다.
+
+
 }
+
 
 // 상속 - inheritance
 
