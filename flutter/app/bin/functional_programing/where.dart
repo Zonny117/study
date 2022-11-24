@@ -12,6 +12,7 @@ void main() {
 
   // 리스트 중 그룹이 유애나인 데이터만 뽑아옴 where()는 함수를 사용한다. 자바스크립트의 필터랑 비슷
   final iu = nameList.where((x)=>x['group'] == '유애나');  
-
+  final zonny = nameList.where((x)=>x['name'] == '조니');
   print(iu);
+  print(zonny);
 }
