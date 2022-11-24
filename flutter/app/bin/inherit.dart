@@ -64,7 +64,7 @@ class BoyGroup extends Idol {
   BoyGroup(
     String name,
     int membersCount,
-  ) : super(
+  ) : super( //상속된 클래스는 super를 선언
           name: name,
           membersCount: membersCount,
         );
