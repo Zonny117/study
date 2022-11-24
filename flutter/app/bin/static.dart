@@ -14,6 +14,9 @@ void main() {
 
   zonny.nameAndBuilding();
   iu.nameAndBuilding();
+
+  // static 키워드 메소드
+  Employee.printBuilding();
 }
 
 class Employee{
