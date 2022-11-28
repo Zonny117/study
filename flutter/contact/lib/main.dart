@@ -10,12 +10,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Container(
-        // 플러터의 단위는 픽셀이 아닌 LP이다.
-        width: 50,
-        height: 50,
-        color: Colors.blue,
-      ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('앱임'),
+          ),
+          body: Container(
+            child: Text('안녕'),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            child: SizedBox(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(Icons.phone),
+                  Icon(Icons.message),
+                  Icon(Icons.contact_page),
+                ],
+              ),
+            ),
+          ) 
+        )
     );
   }
 }
@@ -27,6 +42,4 @@ class MyApp extends StatelessWidget {
   assets:
     - assets/
   라고 작성. 앞에 띄어쓰기 중요!! asset이란 폴더 안에 있는 이미지 파일을 전부 불러옴.
-
-  
  */
