@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -11,67 +13,72 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-// state를 사용하기 위해선 클래스 자체가 statefulWidget을 상속받아야한다.
 class _MyAppState extends State<MyApp> {
 
-  // state 위젯 안에서 생성된 모든 변수는 state로 기록된다.
-  // state의 활용은 리액트와 마찬가지로 자주 변하게 될 데이터 혹은 실시간으로 변화하는 값을 보여줘야되는 것을 기준으로 한다.
-  int a = 1;
   List<String> name =  ['아이유', '조니', ' 개간로'];
-  List<int> like = [0, 0, 0];
 
   @override
+  /* 
+    build의 context 자신의 부모, 조상 위젯 정보를 담고있는 패러미터
+    이 context가 있어야 사용이 가능한 위젯들이 있다.
+    다이얼로그는 부모 중에 materialApp이 있어야하는데, 
+    build의 리턴으로 materialApp을 받게되면,
+    build의 부모는 없게되어 오류가 난다.
+
+    따라서 materialApp을 build 바깥으로 빼내는 방법이나,
+    materialApp 안쪽에 build를 하나더 생성하고, 해당 build의 context를 다이얼로그가 받아오게 하면 된다.
+   */
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-          /* 
-            플로팅 액션 버튼
-            - 패러미터 2개 필요,
-            - child, onPressed
-            - onPressed는 눌렀을 때 실행할 함수를 정의할 수 있다.
-           */
+    return Scaffold(
           floatingActionButton: FloatingActionButton(
-            child: Text(a.toString()),
             onPressed: (){
-              setState(() {
-                a++;
+              // 다이얼로그를 표시하는 위젯이며, context를 필수로 받아온다.
+              // showDialog의 부모는 scaffold, 조상은 materialApp이 된다.
+              showDialog(context: context, builder: (context) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
+                  child: Container(
+                    width: 300,
+                    height: 200,
+                    padding: EdgeInsets.all(30),
+                    child: ListView(
+                      children: [
+                        Text('Contact', style: TextStyle(fontSize: 20),),
+                        TextField(
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: (){}, 
+                                child: Text('Cancel', style: TextStyle(color: Colors.blue),)
+                              ),
+
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ),
+                );
+                  
               });
             },
           ),
           appBar: AppBar(),
-          /* 
-            ListView.builder(itemCount, itemBuilder) 
-            - for문을 사용하지 않고 반복적으로 위젯을 생성할 수 있다.
-            - 패러미터는 2개가 필요하며, itemCount는 반복할 횟수, itemBuilder는 실행할 함수를 받는다.
-            - itemBuilder는 context, index 패러미터 2개가 필요하며, index는 반복문이 돌면서 +1씩 증가하는 정수이다.
-            - itemBuilder는 생성할 위젯이 있어야하기 때문에 당연히 리턴값이 필요하다.
-
-            ListTile()
-            - Row로 일일히 생성하다보면 코드가 너무 길어짐, 이걸 축약해서 간단하게 만들 수 있는 위젯이다.
-           */
           body: ListView.builder(
             itemCount: 3,
             itemBuilder: (context, index)  =>
             ListTile(
-              leading: Text(like[index].toString()),
-              title: Text(name[index]),
-              trailing: TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                ),
-                child: Text('좋아요', style: TextStyle(color: Colors.white)),
-                onPressed: (() {
-                  // 실제로 state로 기록된 변수를 변경했을때 재렌더링을 하고 싶으면 setState((){})를 이용해야한다.
-                  setState(() {
-                    like[index]++;
-                  });
-                }),
-              ),
+              leading: Icon(Icons.man),
+              title: Text(name[index]),       
             ),           
           ),
           bottomNavigationBar: BottomAppbar(),
-        )
-    );
+        );
   }
 }
 
