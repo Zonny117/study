@@ -14,10 +14,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  String confirm = '확인';
+  int total = 3;
   int a = 1;
   List<String> name = ['아이유', '조니', ' 개간로'];
+
+  /* 
+    자식이 부모의 state를 수정하고 싶으면, 
+    부모 클래스에서 state 수정 함수를 작성해서 자식에게 전달해야한다.
+   */
+  addOne() {
+    setState(() {
+      total++;
+    });
+  }
+
+  addName(text) {
+    setState(() {
+      name.add(text);
+    });
+  }
 
   @override
   /* 
@@ -45,13 +60,16 @@ class _MyAppState extends State<MyApp> {
                   - 부모의 state 변수를 자식 위젯의 패러미터로 전달한다. 
                   (이떄 작명한 패러미터는 자식 위젯에서 초기화된 놈과 동일해야함, 이름이 같아야된다는거임)
                  */
-                return DialogUI(state:a, floating:confirm);
+                return DialogUI(
+                  state: addOne,
+                  name: addName,
+                );
               });
         },
       ),
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(total.toString())),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: name.length,
         itemBuilder: (context, index) => ListTile(
           leading: Icon(Icons.man),
           title: Text(name[index]),
@@ -97,13 +115,15 @@ class BottomAppbar extends StatelessWidget {
 
 class DialogUI extends StatelessWidget {
   // 변수 선언
-  final state, floating;
+  final state, name;
+
+  // 사용자가 입력한 텍스트 정보값을 받아오는 함수
+  final inputText = TextEditingController();
 
   // 생성자로 초기화
   // 이 DialogUI 클래스에는 이런 패러미터들이 들어갈겁니다~라고 초기 설정 작업을 하는거임.
-  // 그리고 이 패러미터들은 위에 선언한 변수를 받아오는 겁니다.
-  // {}로 감쌌기 떄문에 옵셔널 패러미터이고, 옵셔널 패러미터는 상수로 지정되어야한다. ex) final
-  const DialogUI({super.key, this.state, this.floating});
+  // 그리고 이 패러미터는 위에 선언한 변수를 받아오는 겁니다.
+  DialogUI({super.key, this.state, this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +141,7 @@ class DialogUI extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               TextField(
+                controller: inputText,
                 style: TextStyle(fontSize: 20),
               ),
               Container(
@@ -138,10 +159,17 @@ class DialogUI extends StatelessWidget {
                         )),
                     TextButton(
                         onPressed: () {
+                          if (inputText.text.isEmpty) {
+                            return;
+                          } else {
+                            state();
+                            // 인풋 컨트롤러의 text 객체를 받아오면, 사용자가 필드에 입력한 값을 받을 수 있다.
+                            name(inputText.text);
+                          }
                           Navigator.pop(context);
                         },
                         child: Text(
-                          floating,
+                          'OK',
                           style: TextStyle(color: Colors.blue),
                         )),
                   ],
