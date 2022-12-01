@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -14,6 +15,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  getPermission() async {
+    var status = await Permission.contacts.status;
+    if (status.isGranted) {
+      print('허락됨');
+    } else if (status.isDenied) {
+      print('거절됨');
+
+      // 연락처 권한 요청
+      Permission.contacts.request();
+
+      // 설정창을 여는 함수
+      openAppSettings();
+    }
+  }
+
+  // 현재 위젯이 실행이 될때 작동하는 함수, 위젯 로드될때 발행하는 겁니다.
+  // 여기선 MyApp이 로드될때가 해당됨
+  @override
+  void initState() {
+    super.initState();
+    getPermission();
+  }
+
   int total = 3;
   int a = 1;
   List<String> name = ['아이유', '조니', ' 개간로'];
@@ -67,7 +92,7 @@ class _MyAppState extends State<MyApp> {
               });
         },
       ),
-      appBar: AppBar(title: Text(total.toString())),
+      appBar: AppBar(title: Text(total.toString()), actions: [IconButton(onPressed: (){getPermission();}, icon: Icon(Icons.contact_phone))],),
       body: ListView.builder(
         itemCount: name.length,
         itemBuilder: (context, index) => ListTile(
