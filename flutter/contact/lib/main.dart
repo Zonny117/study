@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:contacts_service/contacts_service.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,11 +16,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   getPermission() async {
     var status = await Permission.contacts.status;
     if (status.isGranted) {
       print('허락됨');
+      var contacts = await ContactsService.getContacts();
+
+      setState(() {
+        name = contacts;
+      });
+
+      // 연락처 추가 코드 예시
+      // var newPerson = Contact();
+      // newPerson.givenName = '민수';
+      // newPerson.familyName = '김';
+      // ContactsService.addContact(newPerson);
+
     } else if (status.isDenied) {
       print('거절됨');
 
@@ -33,15 +45,14 @@ class _MyAppState extends State<MyApp> {
 
   // 현재 위젯이 실행이 될때 작동하는 함수, 위젯 로드될때 발행하는 겁니다.
   // 여기선 MyApp이 로드될때가 해당됨
-  @override
+/*   @override
   void initState() {
     super.initState();
     getPermission();
-  }
+  } */
 
-  int total = 3;
-  int a = 1;
-  List<String> name = ['아이유', '조니', ' 개간로'];
+  int total = 0;
+  List<Contact> name = [];
 
   /* 
     자식이 부모의 state를 수정하고 싶으면, 
@@ -73,6 +84,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.phone_android),
         onPressed: () {
           // 다이얼로그를 표시하는 위젯이며, context를 필수로 받아온다.
           // showDialog의 부모는 scaffold, 조상은 materialApp이 된다.
@@ -92,12 +104,22 @@ class _MyAppState extends State<MyApp> {
               });
         },
       ),
-      appBar: AppBar(title: Text(total.toString()), actions: [IconButton(onPressed: (){getPermission();}, icon: Icon(Icons.contact_phone))],),
+      appBar: AppBar(
+        title: Text('연락처: ${total.toString()} 명'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                getPermission();
+              },
+              icon: Icon(Icons.contact_phone))
+        ],
+      ),
       body: ListView.builder(
         itemCount: name.length,
         itemBuilder: (context, index) => ListTile(
           leading: Icon(Icons.man),
-          title: Text(name[index]),
+          // ?? => 왼쪽 값이 null이면 오른쪽 값을 보여줌. (null 체크하는 문법 중 하나)
+          title: Text(name[index].givenName ?? '이름이 없는놈'),
         ),
       ),
       bottomNavigationBar: BottomAppbar(),
@@ -189,7 +211,10 @@ class DialogUI extends StatelessWidget {
                           } else {
                             state();
                             // 인풋 컨트롤러의 text 객체를 받아오면, 사용자가 필드에 입력한 값을 받을 수 있다.
-                            name(inputText.text);
+                            var person = Contact();
+                            person.givenName = inputText.text;
+                            ContactsService.addContact(person);
+                            name(person);
                           }
                           Navigator.pop(context);
                         },
