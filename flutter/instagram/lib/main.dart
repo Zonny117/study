@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 // style.dart를 style이라는 이름으로 불러옴
 import './style.dart' as style;
+// 서버 요청 패키지
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+// 스크롤 관련 유용한 함수를 가진 패키지
+import 'package:flutter/rendering.dart';
+// 이미지 피커 패키지
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(MaterialApp(
@@ -24,6 +30,30 @@ class _MyAppState extends State<MyApp> {
   var tab = 0;
 
   var data = [];
+  var userImage;
+  var userContent;
+
+  userData() {
+    var userData = {
+      "id": data.length,
+      "image": userImage,
+      "likes": 5,
+      "date": "July 25",
+      "content": userContent,
+      "liked": false,
+      "user": "zonny"
+    };
+
+    setState(() {
+      data.insert(0, userData);
+    });
+  }
+
+  setUserContent(c) {
+    setState(() {
+      userContent = c;
+    });
+  }
 
   getData() async {
     // get 요청
@@ -31,8 +61,15 @@ class _MyAppState extends State<MyApp> {
         .get(Uri.parse('https://codingapple1.github.io/app/data.json'));
     var result2 = jsonDecode(result.body);
 
+    // 스테이트 설정
     setState(() {
       data = result2;
+    });
+  }
+
+  addData(i) {
+    setState(() {
+      data.add(i);
     });
   }
 
@@ -51,8 +88,34 @@ class _MyAppState extends State<MyApp> {
               'Instagram',
               style: TextStyle(color: Colors.black),
             ),
-            actions: [Icon(Icons.add_box_outlined)]),
-        body: [Contents(data: data), Text('샵페이지')][tab],
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  // 휴대폰 저장된 이미지 불러오기
+                  var picker = ImagePicker();
+                  var image =
+                      await picker.pickImage(source: ImageSource.gallery);
+                  if (image != null) {
+                    setState(() {
+                      userImage = File(image.path);
+                    });
+                  }
+
+                  // 새페이지 띄우는법
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (c) => Upload(
+                                userImage: userImage,
+                                setUserContent: setUserContent,
+                                userData: userData,
+                              )));
+                },
+                icon: Icon(Icons.add_box_outlined),
+                iconSize: 30,
+              ),
+            ]),
+        body: [Contents(data: data, addData: addData), Text('샵페이지')][tab],
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -72,30 +135,58 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Contents extends StatelessWidget {
-  final data;
+class Contents extends StatefulWidget {
+  final data, addData;
 
-  const Contents({super.key, this.data});
+  const Contents({super.key, this.data, this.addData});
+
+  more() async {
+    var get = await http
+        .get(Uri.parse('https://codingapple1.github.io/app/more1.json'));
+    var get2 = jsonDecode(get.body);
+
+    addData(get2);
+  }
+
+  @override
+  State<Contents> createState() => _ContentsState();
+}
+
+class _ContentsState extends State<Contents> {
+  var scroll = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 변수가 변경될때마다 실행되는 함수
+    scroll.addListener(() {
+      // 현재 스크롤 위치 == 스크롤 높이
+      if (scroll.position.pixels == scroll.position.maxScrollExtent) {
+        widget.more();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (data.isNotEmpty) {
+    if (widget.data.isNotEmpty) {
       return Container(
         child: ListView.builder(
-          itemCount: 3,
+          controller: scroll,
+          itemCount: widget.data.length,
           itemBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(data[index]['image']),
-                  Text('좋아요 ${data[index]['likes']}',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(data[index]['user']),
-                  Text(data[index]['content'])
-                ],
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                widget.data[index]['image'].runtimeType == String
+                    ? Image.network(widget.data[index]['image'])
+                    : Image.file(widget.data[index]['image']),
+                Text('좋아요 ${widget.data[index]['likes']}',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(widget.data[index]['user']),
+                Text(widget.data[index]['content'])
+              ],
             );
           },
         ),
@@ -103,5 +194,43 @@ class Contents extends StatelessWidget {
     } else {
       return Text('로딩중');
     }
+  }
+}
+
+class Upload extends StatelessWidget {
+  final userImage, setUserContent, userData;
+  Upload({super.key, this.userImage, this.setUserContent, this.userData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                userData();
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.check))
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.file(userImage),
+          Text('이미지 업로드 화면입니다.'),
+          TextField(
+            onChanged: (val) {
+              setUserContent(val);
+            },
+          ),
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.close))
+        ],
+      ),
+    );
   }
 }
