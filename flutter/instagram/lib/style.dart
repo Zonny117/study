@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 
 var theme = ThemeData(
-      // appBar와 같은 놈들은 appBarTheme이라고 따로 설정을 해야 공통 설정을 할 수 있는 경우가 있음.
-      // 이건 어쩔 수 없음, 그냥 플러터 특징이라 안되는 건 불편함을 감수해야함.
-      appBarTheme: AppBarTheme(
+    // appBar와 같은 놈들은 appBarTheme이라고 따로 설정을 해야 공통 설정을 할 수 있는 경우가 있음.
+    // 이건 어쩔 수 없음, 그냥 플러터 특징이라 안되는 건 불편함을 감수해야함.
+    appBarTheme: AppBarTheme(
         color: Colors.white,
         elevation: 1,
-        iconTheme: IconThemeData(color: Colors.black)
-      ),
-      bottomAppBarTheme: BottomAppBarTheme(
-        elevation: 1,
-      )
-        
-        
-      
-    );
+        iconTheme: IconThemeData(color: Colors.black)),
+    bottomNavigationBarTheme:
+        BottomNavigationBarThemeData(selectedItemColor: Colors.black));
 
 
 /* 

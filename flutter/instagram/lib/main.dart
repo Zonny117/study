@@ -11,32 +11,72 @@ void main() {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var tab = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-            'Instagram',
-            style: TextStyle(color: Colors.black),
-          ),
-          actions: [Icon(Icons.add_box_outlined)]),
-      body: Text('안녕'),
-      bottomNavigationBar: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(offset:Offset(0, 0), color: Colors.black)
-          ]
-        ),
-        child: BottomAppBar(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [Icon(Icons.home_outlined), Icon(Icons.shopping_bag_outlined)],
-          ),
-        ),
+        appBar: AppBar(
+            title: Text(
+              'Instagram',
+              style: TextStyle(color: Colors.black),
+            ),
+            actions: [Icon(Icons.add_box_outlined)]),
+        body: [Contents(), Text('샵페이지')][tab],
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          onTap: (i) {
+            setState(() {
+              tab = i;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined), label: 'home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_bag_outlined), label: 'shopping')
+          ],
+          elevation: 20,
+        ));
+  }
+}
+
+class Contents extends StatelessWidget {
+  const Contents({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Image.asset('assets/bus.png'),
+            subtitle: Container(
+              padding: EdgeInsets.fromLTRB(5, 20, 10, 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '좋아요 100',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text('글쓴이'),
+                  Text('글내용')
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
