@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // style.dart를 style이라는 이름으로 불러옴
 import './style.dart' as style;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(MaterialApp(
@@ -21,6 +23,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var tab = 0;
 
+  var data = [];
+
+  getData() async {
+    // get 요청
+    var result = await http
+        .get(Uri.parse('https://codingapple1.github.io/app/data.json'));
+    var result2 = jsonDecode(result.body);
+
+    setState(() {
+      data = result2;
+    });
+  }
+
+  //위젯 로드될때 실행, initState는 async를 붙일 수 없기 때문에 await을 쓰려면 외부에 함수를 작성한다.
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +52,7 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(color: Colors.black),
             ),
             actions: [Icon(Icons.add_box_outlined)]),
-        body: [Contents(), Text('샵페이지')][tab],
+        body: [Contents(data: data), Text('샵페이지')][tab],
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -51,33 +73,35 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Contents extends StatelessWidget {
-  const Contents({super.key});
+  final data;
+
+  const Contents({super.key, this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Image.asset('assets/bus.png'),
-            subtitle: Container(
-              padding: EdgeInsets.fromLTRB(5, 20, 10, 5),
+    if (data.isNotEmpty) {
+      return Container(
+        child: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '좋아요 100',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text('글쓴이'),
-                  Text('글내용')
+                  Image.network(data[index]['image']),
+                  Text('좋아요 ${data[index]['likes']}',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(data[index]['user']),
+                  Text(data[index]['content'])
                 ],
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    } else {
+      return Text('로딩중');
+    }
   }
 }
