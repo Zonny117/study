@@ -15,9 +15,13 @@ void main() {
 
   person.sayName();
 
+  // 부모클래스에서 상속받은 패러미터와 본인만 가지고 있는 패러미터를 전부 사용하고 있다.
   var detail = Detail(country: '대한민국', age: 31, name: '조니', sex: '남');
-
+  // 자식 클래스가 오버라이드로 덮어썼기 때문에 추가적으로 함수가 실행되고 있다.
   detail.sayName();
+
+  // 믹스인된 Sarang 클래스에 있는 dog 메서드를 호출
+  print(detail.dog());
 }
 
 class Info {
@@ -31,11 +35,13 @@ class Info {
   });
 
   void sayName() {
-    print(this.name);
+    print(name);
   }
 }
 
-class Detail extends Info {
+// extends는 상속, with은 믹스인(mixin)
+// extends는 부모 클래스의 모든걸 상속받지만, mixin은 해당 클래스에 있는 골라서 뺏어올 수 있다.
+class Detail extends Info with Sarang {
   // 자식 클래스에서 선언된 변수는 자식만 사용
   String country, name, sex;
   int age;
@@ -57,5 +63,12 @@ class Detail extends Info {
     super.sayName();
     // 추가로 함수 실행
     print(country);
+  }
+}
+
+// mixin을 하기 위해선 해당 클래스에 생성자가 없어야한다!
+class Sarang {
+  String dog() {
+    return '사랑이';
   }
 }
