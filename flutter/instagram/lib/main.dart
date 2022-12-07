@@ -9,13 +9,26 @@ import 'package:flutter/rendering.dart';
 // 이미지 피커 패키지
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MaterialApp(
-    // theme - 공통으로 스타일 지정을 할 수 있는 기능, css로 치면 공통 css를 잡는 느낌, 또한, 자기 자신과 가장 가까운 theme 설정을 따라간다.
-    // style.dart를 style이라는 이름으로 불러왔고 그 파일 안에 있는 theme이라는 변수를 사용하려면 아래와 같이 작성된다. 객체 지향이다.
-    theme: style.theme,
-    home: MyApp(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => Store1(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => Store2(),
+      ),
+    ],
+    child: MaterialApp(
+      // theme - 공통으로 스타일 지정을 할 수 있는 기능, css로 치면 공통 css를 잡는 느낌, 또한, 자기 자신과 가장 가까운 theme 설정을 따라간다.
+      // style.dart를 style이라는 이름으로 불러왔고 그 파일 안에 있는 theme이라는 변수를 사용하려면 아래와 같이 작성된다. 객체 지향이다.
+      theme: style.theme,
+      home: MyApp(),
+    ),
   ));
 }
 
@@ -32,6 +45,45 @@ class _MyAppState extends State<MyApp> {
   var data = [];
   var userImage;
   var userContent;
+
+  /* 
+    [SharedPreferences 패키지]
+    - 사용자 휴대폰에 임시로 저장하는 방식
+    - 중요한 데이터는 서버에 저장하지만, 상대적으로 덜 중요한 데이터들은 이 방식으로 저장하는 것이 좋다.
+    - 사용자가 해당 앱의 데이터를 삭제하는 순간, 저장된 데이터는 사라진다. (반영구적)
+    - 이미지는 저장할 수 없다. 이미지를 저장하려면 cashed_network_image 패키지 등을 이용해야 한다.
+
+    ※ 활용 메서드
+
+    [데이터 저장법]
+    set(작명, 저장할 데이터); 기본적으로 저장은 이런 방식인데 타입을 지정해서 저장하는 것이 더 좋다.
+    setString, setDouble 등...
+
+    그러나 예외적으로 Map 자료는 저장할 수 없다. json으로 저장을 해야한다.
+    json은 String으로 사기를 쳐서 저장할 수 있다.
+
+    setString(작명, 'jsonEncode(저장할 Map자료)');
+
+    [데이터 불러오기]
+    get(불러올 데이터 이름); 기본적으로 저장된 데이터를 불러올때 쓰는 방식인데, 이 역시 타입을 이용해서 불러오는것이 좋다.
+    getString, getBool 등...
+
+    [데이터 삭제]
+    remove(삭제할 데이터 이름);
+   */
+
+  saveData() async {
+    var storage = await SharedPreferences.getInstance();
+
+    var map = {'age': 20};
+
+    storage.setString('Map', jsonEncode(map));
+    // json 파일을 디코딩하려면 스트링 타입으로 데이터를 받아야한다. 따라서 데이터는 항상 타입을 지정하는 습관이 중요하다.
+    // 또한, null 체크가 필요하다.
+    var result = storage.getString('Map') ?? '빈값';
+
+    print(jsonDecode(result));
+  }
 
   userData() {
     var userData = {
@@ -78,6 +130,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     getData();
+    saveData();
   }
 
   @override
@@ -184,7 +237,25 @@ class _ContentsState extends State<Contents> {
                     : Image.file(widget.data[index]['image']),
                 Text('좋아요 ${widget.data[index]['likes']}',
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(widget.data[index]['user']),
+                GestureDetector(
+                  child: Text(widget.data[index]['user']),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        // 페이지 전환 애니메이션
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  Profile(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) =>
+                                  FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          ),
+                        ));
+                  },
+                ),
                 Text(widget.data[index]['content'])
               ],
             );
@@ -231,6 +302,75 @@ class Upload extends StatelessWidget {
               },
               icon: Icon(Icons.close))
         ],
+      ),
+    );
+  }
+}
+
+/* 
+  [provider 패키지]
+  state를 한번에 관리할 수 있는 패키지이다. 
+  앱 규모가 커질경우 스테이트를 관리하기 빡세다.
+  이걸 한번에 관리해주는 것이 provider이고
+  모든 위젯이 이 provider안에 있는 state를 가져다 쓸 수 있다.
+  만약 앱규모가 작다면 그냥 원래하던 방식으로 스테이트를 사용하는 것도 방법이다.
+
+  provider가 한개라면 MaterialApp을 ChangeNotifierProvider로 감싼다.
+  ChangeNotifierProvider는 create 패러미터가 필요하다. 
+
+  provider 여러개라면 MatrialApp을 MultiProvider로 감싼다.
+  그리고 Providers라는 패러미터가 필요하며, 리스트 형식으로 ChangeNotifierProvider를 추가하면 된다. (상단 main 함수 참고)
+ */
+class Store1 extends ChangeNotifier {
+  var follower = 0;
+  var check = false;
+
+  onClick() {
+    if (check) {
+      follower++;
+      check = false;
+    } else {
+      follower--;
+      check = true;
+    }
+    // 재렌더링을 실행하는 함수
+    notifyListeners();
+  }
+}
+
+class Store2 extends ChangeNotifier {
+  var name = 'Zonny';
+}
+
+class Profile extends StatelessWidget {
+  const Profile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(context.watch<Store2>().name,
+            style: TextStyle(color: Colors.black)),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50), color: Colors.grey),
+            ),
+            Text('팔로워 ${context.watch<Store1>().follower}명'),
+            ElevatedButton(
+                onPressed: () {
+                  context.read<Store1>().onClick();
+                },
+                child: Text('팔로우')),
+          ],
+        ),
       ),
     );
   }
