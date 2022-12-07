@@ -153,7 +153,12 @@ class _MyAppState extends State<MyApp> {
                       userImage = File(image.path);
                     });
                   }
-
+                  /* 
+                    빌드컨텍스트는 비동기 작업과 함께 사용하지 말라고 경고 표시가 난다.
+                    이유는 await 이후에 사용할 빌드컨텍스트를 가지고 있는 것은 오류가 어디서 발생했는지 찾기 힘들기 때문이다.
+                    해결 방법은 조건문으로 해당 위젯이 mounted(준비)가 되지 않은 경우 리턴시키는 방법이다.
+                   */
+                  if (!mounted) return;
                   // 새페이지 띄우는법
                   Navigator.push(
                       context,
