@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1012123948651",
+    "project_id": "fluttergram-7aa90",
+    "storage_bucket": "fluttergram-7aa90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012123948651:android:f1d0c838a4136d86c0c32e",
+        "android_client_info": {
+          "package_name": "com.zonny117.instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012123948651-aifp3o37dm7hv9bvbdnikbqnuoq0p0t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy6HtUTVAoUHyZdEQWnDaaTukyNy8SP3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012123948651-aifp3o37dm7hv9bvbdnikbqnuoq0p0t1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012123948651-a8m4b948i6fl17svq8v9f4vinms0jfbr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zonny117.instagram"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

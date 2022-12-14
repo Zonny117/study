@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/notification.dart';
+import 'package:instagram/saveData.dart';
+import './shop.dart';
 // style.dart를 style이라는 이름으로 불러옴
 import './style.dart' as style;
 // 서버 요청 패키지
@@ -9,11 +12,17 @@ import 'package:flutter/rendering.dart';
 // 이미지 피커 패키지
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -45,45 +54,6 @@ class _MyAppState extends State<MyApp> {
   var data = [];
   var userImage;
   var userContent;
-
-  /* 
-    [SharedPreferences 패키지]
-    - 사용자 휴대폰에 임시로 저장하는 방식
-    - 중요한 데이터는 서버에 저장하지만, 상대적으로 덜 중요한 데이터들은 이 방식으로 저장하는 것이 좋다.
-    - 사용자가 해당 앱의 데이터를 삭제하는 순간, 저장된 데이터는 사라진다. (반영구적)
-    - 이미지는 저장할 수 없다. 이미지를 저장하려면 cashed_network_image 패키지 등을 이용해야 한다.
-
-    ※ 활용 메서드
-
-    [데이터 저장법]
-    set(작명, 저장할 데이터); 기본적으로 저장은 이런 방식인데 타입을 지정해서 저장하는 것이 더 좋다.
-    setString, setDouble 등...
-
-    그러나 예외적으로 Map 자료는 저장할 수 없다. json으로 저장을 해야한다.
-    json은 String으로 사기를 쳐서 저장할 수 있다.
-
-    setString(작명, 'jsonEncode(저장할 Map자료)');
-
-    [데이터 불러오기]
-    get(불러올 데이터 이름); 기본적으로 저장된 데이터를 불러올때 쓰는 방식인데, 이 역시 타입을 이용해서 불러오는것이 좋다.
-    getString, getBool 등...
-
-    [데이터 삭제]
-    remove(삭제할 데이터 이름);
-   */
-
-  saveData() async {
-    var storage = await SharedPreferences.getInstance();
-
-    var map = {'age': 20};
-
-    storage.setString('Map', jsonEncode(map));
-    // json 파일을 디코딩하려면 스트링 타입으로 데이터를 받아야한다. 따라서 데이터는 항상 타입을 지정하는 습관이 중요하다.
-    // 또한, null 체크가 필요하다.
-    var result = storage.getString('Map') ?? '빈값';
-
-    print(jsonDecode(result));
-  }
 
   userData() {
     var userData = {
@@ -131,11 +101,18 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     getData();
     saveData();
+    initNotification(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Text('알림'),
+          onPressed: () {
+            showNotification2();
+          },
+        ),
         appBar: AppBar(
             title: Text(
               'Instagram',
@@ -173,7 +150,7 @@ class _MyAppState extends State<MyApp> {
                 iconSize: 30,
               ),
             ]),
-        body: [Contents(data: data, addData: addData), Text('샵페이지')][tab],
+        body: [Contents(data: data, addData: addData), Shop()][tab],
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -330,6 +307,8 @@ class Store1 extends ChangeNotifier {
   var follower = 0;
   var check = false;
 
+  var profileImage = [];
+
   onClick() {
     if (check) {
       follower++;
@@ -339,6 +318,14 @@ class Store1 extends ChangeNotifier {
       check = true;
     }
     // 재렌더링을 실행하는 함수
+    notifyListeners();
+  }
+
+  imageData() async {
+    var result = await http
+        .get(Uri.parse('https://codingapple1.github.io/app/profile.json'));
+    var result2 = jsonDecode(result.body);
+    profileImage = result2;
     notifyListeners();
   }
 }
@@ -357,25 +344,77 @@ class Profile extends StatelessWidget {
         title: Text(context.watch<Store2>().name,
             style: TextStyle(color: Colors.black)),
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.grey),
+      /* 
+        [CustomScrollView]
+        - 스크롤 박스를 만드는 위젯
+        - 페러미터는 slivers를 갖으며, 리스트를 값으로 받는다.
+        - 리스트안에는 svliver로 시작하는 위젯을 넣으면 된다.
+        예) Container와 같은 성격의 위젯은 SliverToBoxAdapter,
+        GridView는 SliverGrid 등
+       */
+      body: CustomScrollView(
+        slivers: [
+          // Container()와 같은 기능을 한다.
+          SliverToBoxAdapter(
+            child: ProfileHeader(),
+          ),
+          /* 
+            그리드 영역만 스크롤을 하고 싶으면, 커스텀 스크롤 뷰를 사용하지 않고
+            그리드 영역만 GridVeiw.Builder를 사용하면 되지만,
+
+            그리드를 포함한 박스 전체를 스크롤하기 위해 커스텀 스크롤 뷰를 사용했다.
+            커스텀 스크롤 뷰에서는 SliverGrid로 사용한다.
+           */
+          SliverGrid(
+            // delegate 패러미터 => 그리드에 보여줄 내용물을 설정할 수 있다.
+            // SliverChildBuilderDelegate 위젯으로 설정
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Container(
+                // SliverGrid 같은 경우에는 데이터가 늦게 도착해도 봐줌
+                child:
+                    Image.network(context.watch<Store1>().profileImage[index]),
+              ),
+              childCount: context.watch<Store1>().profileImage.length,
             ),
-            Text('팔로워 ${context.watch<Store1>().follower}명'),
-            ElevatedButton(
-                onPressed: () {
-                  context.read<Store1>().onClick();
-                },
-                child: Text('팔로우')),
-          ],
-        ),
+            // gridDelegate 패러미터 => 한 열에 열거할 개수를 설정할 수 있다.
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileHeader extends StatelessWidget {
+  const ProfileHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50), color: Colors.grey),
+          ),
+          Text('팔로워 ${context.watch<Store1>().follower}명'),
+          ElevatedButton(
+              onPressed: () {
+                context.read<Store1>().onClick();
+              },
+              child: Text('팔로우')),
+          ElevatedButton(
+            onPressed: () {
+              context.read<Store1>().imageData();
+            },
+            child: Text('사진 가져오기'),
+          )
+        ],
       ),
     );
   }
