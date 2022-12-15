@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: Login(),
-  ));
+void main() async {
+  // firebase를 사용하려면 반드시 비동기 방식으로 플러터 코어 엔진 초기화
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("하이팩토리"),
-      ),
-      body: Container(),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.accessibility_outlined), label: '안녕'),
-          BottomNavigationBarItem(icon: Icon(Icons.abc_rounded), label: '안녕')
-        ],
-      )
-    );
+    return Container();
   }
 }
