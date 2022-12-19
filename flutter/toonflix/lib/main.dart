@@ -40,7 +40,17 @@ class App extends StatelessWidget {
                     ],
                   )
                 ],
-              )
+              ),
+              SizedBox(
+                height: 120,
+              ),
+              Text(
+                'Total Balance',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 22,
+                ),
+              ),
             ],
           ),
         ),
