@@ -99,9 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: const Icon(Icons.restore_outlined),
                     iconSize: 48,
                     color: Theme.of(context).cardColor,
-                    onPressed: () {
-                      reset();
-                    },
+                    onPressed: reset,
                   ),
                 ],
               ),
