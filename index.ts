@@ -55,3 +55,30 @@ function empty() {
 type Add = (a: number, b: number) => number;
 
 const add: Add = (a, b) => a + b;
+
+// overloading
+// 여러개의 call signature를 가진 함수를 뜻한다.
+type Sum = {
+  (a: number, b: number): number;
+  (a: number, b: string): number;
+};
+
+// overloading에서는 패러미터의 타입이 다른 두개의 함수를 구별해서 사용할 수 있게 분기해야한다.
+const sum: Sum = (a, b) => {
+  if (typeof b === 'string') return a;
+  return a + b;
+};
+
+type Sum2 = {
+  (a: number, b: number, c: number): number;
+  (a: number, b: number): number;
+};
+
+// 서로 패러미터 개수가 다른 signature에서는 옵셔널하게 대응함으로써 조건을 분기할 수 있다.
+const sum2: Sum2 = (a, b, c?: number) => {
+  if (c) {
+    return a + b + c;
+  } else {
+    return a + b;
+  }
+};
