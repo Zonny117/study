@@ -82,3 +82,18 @@ const sum2: Sum2 = (a, b, c?: number) => {
     return a + b;
   }
 };
+
+// Polymorphism (다형성)
+// Generic을 통해 타입을 알아서 인식하게 할 수 있어 코드 재활용에 용이하다.
+
+type GetArr = {
+  // 관습적으로 generic은 T 혹은 V로 표현을 한다. 작명은 맘대로 할 수 있음.
+  <T>(arr: T[]): T;
+};
+
+const getArr: GetArr = arr => arr[0];
+
+// 리턴값은 number, 패러미터는 number 배열로 인식
+const arr1 = getArr([1, 2, 3]);
+// string으로 인식
+const arr2 = getArr(['a', 'b']);
