@@ -13,18 +13,31 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final ScrollController scrollController = ScrollController();
 
+  // sliver 실시간 높이값
   double currentExtent = 0.0;
-
+  // sliver 최소 높이값
   double minExtent() => 0.0;
+  // sliver 최대 높이값
   double maxExtent() => 300.0;
+  // sliver 높이값 차이
   double deltaExtent() => maxExtent() - minExtent();
 
+  // 애니메이션 초기값
   double profileSize = 200;
-  
+
+  // 애니메이션 트윈 값
   final Tween<double> profileSizeTween = Tween(begin: 200, end: 50);
 
+  // 이징
   Curve get curve => Curves.easeOutCubic;
 
+  /* 
+    [현재 높이값 계산 함수]
+
+    OldRange = (OldMax - OldMin)  
+    NewRange = (NewMax - NewMin)  
+    NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+   */
   double _remapCurrentExtent(Tween<double> target) {
     final double deltaTarget = target.end! - target.begin!;
 
@@ -40,6 +53,7 @@ class _ProfileState extends State<Profile> {
     return lerpDouble(target.begin!, target.end!, curveT)!;
   }
 
+  // 스크롤 리스너
   scrollLister() {
     setState(() {
       currentExtent = scrollController.offset;
