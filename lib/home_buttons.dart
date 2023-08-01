@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_ui/const.dart';
 import 'package:shop_ui/screens/home/home.dart';
 import 'package:shop_ui/screens/profile/profile.dart';
+import 'package:shop_ui/screens/slide/slide.dart';
 
 class HomeButtons extends StatelessWidget {
   const HomeButtons({
@@ -28,6 +29,13 @@ class HomeButtons extends StatelessWidget {
             TextButtons(
               text: "프로필 UI",
               route: Profile(),
+            ),
+            SizedBox(
+              height: kDefaultPadding / 2,
+            ),
+            TextButtons(
+              text: "슬라이드 UI",
+              route: Slide(),
             ),
           ],
         ),

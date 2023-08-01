@@ -20,6 +20,7 @@ class _ProfileState extends State<Profile> {
   double deltaExtent() => maxExtent() - minExtent();
 
   double profileSize = 200;
+  
   final Tween<double> profileSizeTween = Tween(begin: 200, end: 50);
 
   Curve get curve => Curves.easeOutCubic;
