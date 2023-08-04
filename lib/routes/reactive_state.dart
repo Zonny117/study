@@ -12,7 +12,7 @@ class ReactiveState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('단순 상태관리'),
+        title: const Text('반응형 상태관리'),
       ),
       body: Center(
         child: Column(
