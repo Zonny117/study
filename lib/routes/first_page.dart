@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_x/routes/next.dart';
+import 'package:get_x/routes/simple_state.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
@@ -36,6 +37,12 @@ class FirstPage extends StatelessWidget {
                 Get.toNamed("/user/12345?name=사랑&age=15");
               },
               child: const Text("동적 URL"),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => const SimpleState());
+              },
+              child: const Text("단순 상태관리"),
             ),
             TextButton(
               onPressed: () {
