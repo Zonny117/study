@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_x/routes/next.dart';
+import 'package:get_x/routes/reactive_state.dart';
 import 'package:get_x/routes/simple_state.dart';
 
 class FirstPage extends StatelessWidget {
@@ -43,6 +44,12 @@ class FirstPage extends StatelessWidget {
                 Get.to(() => const SimpleState());
               },
               child: const Text("단순 상태관리"),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => ReactiveState());
+              },
+              child: const Text("반응형 상태관리"),
             ),
             TextButton(
               onPressed: () {
