@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_x/dependency/dependency_manage.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -24,6 +25,12 @@ class Home extends StatelessWidget {
                 Get.toNamed("/first");
               },
               child: const Text("첫번째 페이지"),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => const DependencyManagePage());
+              },
+              child: const Text("의존성 주입"),
             ),
           ],
         ),
