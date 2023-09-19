@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './store/store';
+import './css/reset.css';
+import './css/common.css';
 
 /* 
   리덕스 스토어를 사용하기 위해서는 
