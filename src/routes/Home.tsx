@@ -26,10 +26,11 @@ const Button = styled.button`
 `;
 
 const TodoList = styled.ul`
+  padding-top: 20px;
   & li {
     display: block;
     &:not(:last-child) {
-      margin: 20px auto;
+      margin-bottom: 20px;
     }
   }
 `;
@@ -63,7 +64,7 @@ function Home() {
   return (
     <>
       <H1>오늘의 할일</H1>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} style={{ marginLeft: 20}}>
         <input type="text" value={value} onChange={onChange} />
         <Button type="submit">게시</Button>
       </form>
