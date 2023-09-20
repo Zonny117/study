@@ -97,3 +97,29 @@ const getArr: GetArr = arr => arr[0];
 const arr1 = getArr([1, 2, 3]);
 // string으로 인식
 const arr2 = getArr(['a', 'b']);
+
+abstract class User {
+  /* 
+    private 키워드는 해당 클래스 내에서만 사용가능하며, 자식 클래스는 사용 불가능.
+    protected는 클래스 바깥에서는 사용이 불가능하지만, 자식 클래스는 사용가능하다.
+    public은 클래스 바깥에서도 사용가능하다.
+  */
+  constructor(
+    protected firstName: string,
+    protected lastName: string,
+    protected nickName: string
+  ) {}
+
+  // 추상 키워드로 생성된 메소드를 상속받게 되면 자식 클래스는 반드시 구현해야한다.
+  abstract getNickName(): void;
+
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+class PlayerClass extends User {
+  getNickName(): void {}
+}
+
+const nico = new PlayerClass('nico', 'las', '니꼬');
