@@ -1,15 +1,25 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Home from './routes/Home';
+import Potrace from './routes/Potrace';
+import AxiosTest from './routes/Axios';
+
+const routerProvider = createHashRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: '/potrace',
+    element: <Potrace />,
+  },
+  {
+    path: '/axios',
+    element: <AxiosTest />,
+  },
+]);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={routerProvider} />;
 }
 
 export default App;

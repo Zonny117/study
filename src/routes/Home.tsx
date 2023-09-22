@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { add } from '../redux/reducers/todo';
 import { useAppDispatch, useAppSelector } from '../Hook';
+import { Link } from 'react-router-dom';
 
 type TodoItem = {
   text: string;
@@ -35,6 +36,15 @@ const TodoList = styled.ul`
   }
 `;
 
+// 스타일 컴포넌트의 기존 컴포넌트 스타일 적용법
+const StyledLink = styled(Link)`
+  display: inline-block;
+  color: black;
+  margin: 20px auto;
+  font-weight: bold;
+`;
+
+// 스타일 컴포넌트의 props 활용법
 const ConditionDiv = styled.div<{ $primary?: boolean }>`
   background-color: ${props => (props.$primary ? 'black' : 'grey')};
   height: 100px;
@@ -64,7 +74,7 @@ function Home() {
   return (
     <>
       <H1>오늘의 할일</H1>
-      <form onSubmit={onSubmit} style={{ marginLeft: 20}}>
+      <form onSubmit={onSubmit} style={{ marginLeft: 20 }}>
         <input type="text" value={value} onChange={onChange} />
         <Button type="submit">게시</Button>
       </form>
@@ -77,6 +87,9 @@ function Home() {
       </TodoList>
       <ConditionDiv $primary={primary}></ConditionDiv>
       <ConditionDiv></ConditionDiv>
+      <StyledLink to={'/potrace'}>포트레이스</StyledLink>
+      <br />
+      <StyledLink to={'/axios'}>Axios</StyledLink>
     </>
   );
 }
