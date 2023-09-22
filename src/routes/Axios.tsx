@@ -56,7 +56,7 @@ function AxiosTest() {
 
   return (
     <>
-      <H1>Axios 테스트</H1>
+      <H1>리액트 Axios 테스트</H1>
       <Ul>
         {menu.map(item => (
           <li key={item.id}>
