@@ -90,6 +90,8 @@ function Home() {
       <StyledLink to={'/potrace'}>포트레이스</StyledLink>
       <br />
       <StyledLink to={'/axios'}>Axios</StyledLink>
+      <br />
+      <StyledLink to={'/framer'}>Framer</StyledLink>
     </>
   );
 }
