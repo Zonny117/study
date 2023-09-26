@@ -1,26 +1,39 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import Box1 from '../components/framer/Box1';
+import Box2 from '../components/framer/Box2';
+import Box3 from '../components/framer/Box3';
+import Box4 from '../components/framer/Box4';
+import Box5 from '../components/framer/Box5';
 
 const H1 = styled.h1`
   text-align: center;
   font-weight: bold;
   font-size: 32px;
-  margin-top: 20px;
+  margin-bottom: 100px;
+`;
+
+const Span = styled.span`
+  display: inline-block;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
 `;
 
 function Framer() {
   return (
-    <>
+    <div className="framer-container">
       <H1>Framer 연습</H1>
-      <motion.h1
-        initial={{ x: -1000 }}
-        animate={{ x: [0, 900, 0] }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        whileHover={{ scale: 0.9, opacity: 0.2 }}
-      >
-        프레이머 텍스트 애니메이션
-      </motion.h1>
-    </>
+      <Span>박스 1</Span>
+      <Box1 />
+      <Span>박스 2</Span>
+      <Box2 />
+      <Span>박스 3</Span>
+      <Box3 />
+      <Span>박스 4</Span>
+      <Box4 />
+      <Span>박스 5</Span>
+      <Box5 />
+    </div>
   );
 }
 
