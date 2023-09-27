@@ -4,6 +4,7 @@ import Box2 from '../components/framer/Box2';
 import Box3 from '../components/framer/Box3';
 import Box4 from '../components/framer/Box4';
 import Box5 from '../components/framer/Box5';
+import Box6 from '../components/framer/Box6';
 
 const H1 = styled.h1`
   text-align: center;
@@ -33,6 +34,8 @@ function Framer() {
       <Box4 />
       <Span>박스 5</Span>
       <Box5 />
+      <Span>박스 6</Span>
+      <Box6 />
     </div>
   );
 }
