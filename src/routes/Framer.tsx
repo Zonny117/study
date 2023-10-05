@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import Box1 from '../components/framer/Box1';
-import Box2 from '../components/framer/Box2';
-import Box3 from '../components/framer/Box3';
-import Box4 from '../components/framer/Box4';
-import Box5 from '../components/framer/Box5';
-import Box6 from '../components/framer/Box6';
+import styled from "styled-components";
+import Box1 from "../components/framer/Box1";
+import Box2 from "../components/framer/Box2";
+import Box3 from "../components/framer/Box3";
+import Box4 from "../components/framer/Box4";
+import Box5 from "../components/framer/Box5";
+import Box6 from "../components/framer/Box6";
 
 const H1 = styled.h1`
   text-align: center;

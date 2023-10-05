@@ -1,16 +1,16 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { MainMenu } from '../models/mainmenu';
-import { BASE_URL } from '../global/constants';
-import MainMenuComponent from '../components/MainMenuList';
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { MainMenu } from '../models/mainmenu'
+import { BASE_URL } from '../global/constants'
+import MainMenuComponent from '../components/MainMenuList'
 
 const H1 = styled.h1`
   font-weight: bold;
   font-size: 32px;
   text-align: center;
   margin: 50px auto;
-`;
+`
 
 const Ul = styled.ul`
   display: grid;
@@ -31,11 +31,11 @@ const Ul = styled.ul`
     gap: 10px;
     height: 500px;
   }
-`;
+`
 
 function AxiosTest() {
   // menu state의 타입을 MainMenu 인스턴스의 배열로 지정, 이래야 자동완성 쓸 수 있음
-  const [menu, setMenu] = useState<MainMenu[]>([]);
+  const [menu, setMenu] = useState<MainMenu[]>([])
 
   useEffect(() => {
     axios
@@ -45,14 +45,14 @@ function AxiosTest() {
         const mainMenu = res.data.map(
           // 매개변수의 타입은 MainMenu 인스턴스, 인스턴스를 리턴하기 때문
           (item: MainMenu) => new MainMenu(item.id, item.name, item.sequence)
-        );
+        )
 
-        setMenu(mainMenu);
+        setMenu(mainMenu)
       })
       .catch(err => {
-        console.log(err);
-      });
-  }, []);
+        console.log(err)
+      })
+  }, [])
 
   return (
     <>
@@ -67,7 +67,7 @@ function AxiosTest() {
         ))}
       </Ul>
     </>
-  );
+  )
 }
 
-export default AxiosTest;
+export default AxiosTest

@@ -6,7 +6,7 @@ interface InterfaceMainMenu {
   sequence: number;
 }
 
-// 인터페이스는 다른 인터페이스를 상속받을 수 있다. 이때 implements가 아닌 extends 키워드를
+// 인터페이스는 다른 인터페이스를 상속받을 수 있다. 이때 implements가 아닌 extends 키워드를 사용.
 interface InterfaceMainMenuList extends InterfaceMainMenu {
   thumbnail: string;
   user_like: boolean;

@@ -1,4 +1,4 @@
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants } from 'framer-motion'
 
 function Box4() {
   const boxVariant: Variants = {
@@ -16,7 +16,7 @@ function Box4() {
         staggerChildren: 0.2,
       },
     },
-  };
+  }
 
   const listVariant: Variants = {
     hidden: {
@@ -27,7 +27,7 @@ function Box4() {
       x: 0,
       opacity: 1,
     },
-  };
+  }
 
   return (
     <div className="box-container">
@@ -37,17 +37,21 @@ function Box4() {
         initial="hidden"
         animate="visible"
       >
-        {[1, 2, 3].map(box => {
+        {[1, 2, 3].map((box, index) => {
           return (
             // 부모 태그 props에 variants가 존재한다면, 자식 태그에서도
             // 부모 variants 속성을 이용한다.
             // 따라서 자식 태그에서는 initial과 animate 부분은 생략할 수 있다.
-            <motion.li className="boxItem" variants={listVariant}></motion.li>
-          );
+            <motion.li
+              key={index}
+              className="boxItem"
+              variants={listVariant}
+            ></motion.li>
+          )
         })}
       </motion.div>
     </div>
-  );
+  )
 }
 
-export default Box4;
+export default Box4
