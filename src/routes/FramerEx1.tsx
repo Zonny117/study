@@ -62,9 +62,6 @@ function FramerEx1() {
         damping: 50,
       },
     },
-    exit: {
-      opacity: 0,
-    },
   };
 
   return (
@@ -90,7 +87,7 @@ function FramerEx1() {
             src={require('../assets/images/joker.jpg')}
             alt="조커"
           />
-          <PicTitle variants={children} exit="exit">
+          <PicTitle variants={children} exit={{ opacity: 0 }}>
             Joker
           </PicTitle>
         </Link>

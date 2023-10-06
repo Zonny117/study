@@ -23,6 +23,9 @@ function AnimateRoutes() {
 
         아래 코드는 라우터에 적용한 방식이며,
         Routes 컴포넌트는 useLocation 훅을 통해 받은 pathname으로 key 값이 설정되어 있다.
+
+        - initial 새로고침을 했을때 자식 요소들에게 설정된 initial를 작동하지 않도록 한다.
+        - mode="wait" 컴포넌트가 언마운트될때까지 애니메이션을 기다렸다가 그 다음에 새로운 컴포넌트를 로드한다.
     */
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>

@@ -41,13 +41,13 @@ function FramerJoker() {
       <H1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        transition={{ duration: 1, ease: 'circIn', damping: 50 }}
       >
         Joker
       </H1>
       <ImgBox
         animate={{ width: '100%', height: '100%' }}
-        transition={{ duration: 1, delay: 0.5 }}
+        transition={{ duration: 1 }}
         onAnimationComplete={() => {
           setOverflow(true);
         }}
