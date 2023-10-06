@@ -1,43 +1,21 @@
-import { RouterProvider, createHashRouter } from 'react-router-dom'
-import Home from './routes/Home'
-import Potrace from './routes/Potrace'
-import AxiosTest from './routes/Axios'
-import Framer from './routes/Framer'
-import { AnimatePresence } from 'framer-motion'
-import FramerEx1 from './routes/FramerEx1'
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+import AnimateRoutes from './AnimateRoutes';
 
-/* 라우터 사용 권장 방식 */
-const routerProvider = createHashRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/potrace',
-    element: <Potrace />,
-  },
-  {
-    path: '/axios',
-    element: <AxiosTest />,
-  },
-  {
-    path: '/framer',
-    element: <Framer />,
-  },
-  {
-    path: '/framer_ex1',
-    element: <FramerEx1 />,
-  },
-])
+// react router dom 6.4 방식
+const router = createBrowserRouter(
+  // 라우터 설정을 jsx 요소로 설정하는 방법
+  // path의 애스터리스크는 모든 경로에 element에 설정된 컴포넌트를 렌더링하겠다는 의미이다.
+  createRoutesFromElements(<Route path="*" element={<AnimateRoutes />} />)
+);
 
 function App() {
-  return (
-    // framer exit 속성을 사용하기 위해선 AnimatePresence로 해당 컴포넌트를 래핑해야한다.
-    // 혹은 아예 최상위 루트에서 아래처럼 래핑해도 된다.
-    <AnimatePresence>
-      <RouterProvider router={routerProvider} />
-    </AnimatePresence>
-  )
+  // RouterProvider에 jsx요소로 생성된 router 변수를 연결
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
-export default App
+export default App;

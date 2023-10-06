@@ -1,4 +1,4 @@
-import { motion, Variants } from 'framer-motion'
+import { motion, Variants } from 'framer-motion';
 
 function Box4() {
   const boxVariant: Variants = {
@@ -16,7 +16,7 @@ function Box4() {
         staggerChildren: 0.2,
       },
     },
-  }
+  };
 
   const listVariant: Variants = {
     hidden: {
@@ -27,7 +27,7 @@ function Box4() {
       x: 0,
       opacity: 1,
     },
-  }
+  };
 
   return (
     <div className="box-container">
@@ -47,11 +47,11 @@ function Box4() {
               className="boxItem"
               variants={listVariant}
             ></motion.li>
-          )
+          );
         })}
       </motion.div>
     </div>
-  )
+  );
 }
 
-export default Box4
+export default Box4;

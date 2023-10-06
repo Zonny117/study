@@ -1,19 +1,20 @@
-import styled from 'styled-components'
-import { motion, Variants } from 'framer-motion'
+import styled from 'styled-components';
+import { motion, Variants } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   min-height: 100vh;
   background-color: azure;
   padding-top: 40px;
   box-sizing: border-box;
-`
+`;
 
-const H1 = styled.h1`
+const H1 = styled(motion.h1)`
   font-weight: bold;
   text-align: center;
   font-size: 32px;
   margin-bottom: 40px;
-`
+`;
 
 const ImgBox = styled(motion.div)`
   text-align: center;
@@ -23,14 +24,15 @@ const ImgBox = styled(motion.div)`
     object-fit: cover;
     cursor: pointer;
   }
-`
+`;
 
 const PicTitle = styled(motion.div)`
   padding: 10px;
   box-sizing: border-box;
   font-size: 20px;
   font-weight: bold;
-`
+  color: #000;
+`;
 
 function FramerEx1() {
   const variants: Variants = {
@@ -41,11 +43,10 @@ function FramerEx1() {
       opacity: 1,
       transition: {
         duration: 1,
-        staggerChildren: 0.6,
-        delayChildren: 0.5,
+        staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   // 부모의 Variants를 자식 요소가 수정하려면 key가 일치해야한다!
   // 아래는 동일한 hidden, visible key를 사용하고, 해당 key의 value인 opacity 값은 그대로 받고 있으며,
@@ -61,11 +62,14 @@ function FramerEx1() {
         damping: 50,
       },
     },
-  }
+    exit: {
+      opacity: 0,
+    },
+  };
 
   return (
     <Wrapper>
-      <H1>프레이머 예제1</H1>
+      <H1 exit={{ opacity: 0 }}>프레이머 예제1</H1>
       {/* 
         react에서 이미지를 불러는 방법은 여러가지이다.
         
@@ -80,15 +84,19 @@ function FramerEx1() {
         또한, 네트워크 요청이 들어가기 때문에 상대적으로 무겁다.
        */}
       <ImgBox variants={variants} initial="hidden" animate="visible">
-        <motion.img
-          variants={children}
-          src={require('../assets/images/joker.jpg')}
-          alt="조커"
-        />
-        <PicTitle variants={children}>Joker</PicTitle>
+        <Link to={'/framer_ex1/framerJoker'}>
+          <motion.img
+            variants={children}
+            src={require('../assets/images/joker.jpg')}
+            alt="조커"
+          />
+          <PicTitle variants={children} exit="exit">
+            Joker
+          </PicTitle>
+        </Link>
       </ImgBox>
     </Wrapper>
-  )
+  );
 }
 
-export default FramerEx1
+export default FramerEx1;

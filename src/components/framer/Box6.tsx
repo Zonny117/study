@@ -1,8 +1,8 @@
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion';
 
 function Box6() {
   // useAnimation 훅을 이용해 애니메이션을 설정할 수 있다.
-  const control = useAnimation()
+  const control = useAnimation();
 
   return (
     <div className="box-container">
@@ -14,7 +14,7 @@ function Box6() {
           control.start({
             x: 1200,
             transition: { duration: 2 },
-          })
+          });
         }}
       >
         Move Right
@@ -24,7 +24,7 @@ function Box6() {
           control.start({
             x: 0,
             transition: { duration: 2 },
-          })
+          });
         }}
       >
         Move Left
@@ -34,7 +34,7 @@ function Box6() {
           control.start({
             borderRadius: '50%',
             transition: { duration: 2 },
-          })
+          });
         }}
       >
         Circle
@@ -44,14 +44,14 @@ function Box6() {
           control.start({
             borderRadius: 0,
             transition: { duration: 2 },
-          })
+          });
         }}
       >
         Sqaure
       </button>
       <button
         onClick={() => {
-          control.stop()
+          control.stop();
         }}
       >
         Stop
@@ -59,7 +59,7 @@ function Box6() {
       {/* useAnimation 훅은 animate의 값에 지정하면 된다. */}
       <motion.div className="box" animate={control}></motion.div>
     </div>
-  )
+  );
 }
 
-export default Box6
+export default Box6;

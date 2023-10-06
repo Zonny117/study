@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { add } from '../redux/reducers/todo'
-import { useAppDispatch, useAppSelector } from '../Hook'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { add } from '../redux/reducers/todo';
+import { useAppDispatch, useAppSelector } from '../Hook';
+import { Link } from 'react-router-dom';
 
 type TodoItem = {
-  text: string
-  id: number
-}
+  text: string;
+  id: number;
+};
 
 const H1 = styled.h1`
   margin-top: 20px;
   font-weight: bold;
   font-size: 20px;
   text-align: center;
-`
+`;
 
 const Button = styled.button`
   background-color: white;
@@ -24,7 +24,7 @@ const Button = styled.button`
     background-color: blue;
     color: white;
   }
-`
+`;
 
 const TodoList = styled.ul`
   padding-top: 20px;
@@ -34,7 +34,7 @@ const TodoList = styled.ul`
       margin-bottom: 20px;
     }
   }
-`
+`;
 
 // 스타일 컴포넌트의 기존 컴포넌트 스타일 적용법
 const StyledLink = styled(Link)`
@@ -42,34 +42,34 @@ const StyledLink = styled(Link)`
   color: black;
   margin: 20px auto;
   font-weight: bold;
-`
+`;
 
 // 스타일 컴포넌트의 props 활용법
 const ConditionDiv = styled.div<{ $primary?: boolean }>`
   background-color: ${props => (props.$primary ? 'black' : 'grey')};
   height: 100px;
   margin-top: 50px;
-`
+`;
 
 function Home() {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('');
 
-  const todoList = useAppSelector(state => state.rootReducer.todoSlice)
-  const dispatch = useAppDispatch()
+  const todoList = useAppSelector(state => state.rootReducer.todoSlice);
+  const dispatch = useAppDispatch();
 
-  const [primary, setPrimary] = useState(false)
+  const [primary, setPrimary] = useState(false);
 
   // preventDefault는 SyntheticEvent 타입이다.
   const onSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    dispatch(add(value))
-    setPrimary(prev => !prev)
-    setValue('')
-  }
+    e.preventDefault();
+    dispatch(add(value));
+    setPrimary(prev => !prev);
+    setValue('');
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value)
-  }
+    setValue(e.target.value);
+  };
 
   return (
     <>
@@ -95,7 +95,7 @@ function Home() {
       <br />
       <StyledLink to={'/framer_ex1'}>Framer 예제1</StyledLink>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

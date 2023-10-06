@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 function Box5() {
   return (
@@ -17,7 +17,7 @@ function Box5() {
         }}
       ></motion.div>
     </div>
-  )
+  );
 }
 
-export default Box5
+export default Box5;
