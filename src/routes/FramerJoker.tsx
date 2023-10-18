@@ -35,7 +35,6 @@ const ImgBox = styled(motion.div)`
 function FramerJoker() {
   const [overflow, setOverflow] = useState<boolean>(false);
 
-  console.log(overflow);
   return (
     <Wrapper $overflow={overflow}>
       <H1
