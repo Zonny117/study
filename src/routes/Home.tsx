@@ -94,6 +94,8 @@ function Home() {
       <StyledLink to={'/framer'}>Framer</StyledLink>
       <br />
       <StyledLink to={'/framer_ex1'}>Framer 예제1</StyledLink>
+      <br />
+      <StyledLink to={'/dnd'}>드래그앤드랍</StyledLink>
     </>
   );
 }

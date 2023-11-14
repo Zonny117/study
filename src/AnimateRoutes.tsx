@@ -6,6 +6,7 @@ import AxiosTest from './routes/Axios';
 import Framer from './routes/Framer';
 import FramerEx1 from './routes/FramerEx1';
 import FramerJoker from './routes/FramerJoker';
+import Dnd from './routes/Dnd';
 
 function AnimateRoutes() {
   // useLocation은 반드시 router 컴포넌트 안에서 호출되어야 한다.
@@ -35,6 +36,7 @@ function AnimateRoutes() {
         <Route path="/framer" element={<Framer />} />
         <Route path="/framer_ex1" element={<FramerEx1 />} />
         <Route path="/framer_ex1/framerJoker" element={<FramerJoker />} />
+        <Route path="/dnd" element={<Dnd />} />
       </Routes>
     </AnimatePresence>
   );
