@@ -5,10 +5,10 @@ import {
   DropResult,
 } from '@hello-pangea/dnd';
 import '../css/dnd.css';
-
 import { useState } from 'react';
 import { editCompData } from '../models/EditCompData';
 import EditableMenu from '../components/EditableMenu';
+import EditableContent from '../components/EditableContent';
 
 function Dnd() {
   const [list, setList] = useState(editCompData);
@@ -38,8 +38,32 @@ function Dnd() {
 
   return (
     <div className="wrapper">
-      <div className="lbx"></div>
+      <div className="lbx">
+        <div className="phone">
+          <div className="fixed_area">
+            <img src={require('../assets/images/logo.png')} alt="로고" />
+            <p>디바이언스 추봉광</p>
+            <iframe
+              className="iframe"
+              title="card"
+              src="https://www.hiduck.co.kr/media/Postbox/20231115/EXkDsV8cgAmpu9c3ZtCPz3/CoffyR4x4VNZfxYHzvspHT.html"
+            ></iframe>
+          </div>
+          <div className="content">
+            {list.map((item, index) => {
+              return (
+                <EditableContent
+                  key={index}
+                  title={item.title}
+                  text={item.text}
+                ></EditableContent>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       <div className="rbx">
+        <p className="rbx_title">카드 만들기</p>
         {/* DragDropContext는 onDragEnd를 필수적으로 받으며, 드래그 앤 드랍의 최상위 wrapper다. */}
         <DragDropContext onDragEnd={onDragEnd}>
           {/* 
@@ -74,7 +98,7 @@ function Dnd() {
                       draggableId={index.toString()}
                       index={index}
                     >
-                      {dragProvided => {
+                      {(dragProvided, snapshot) => {
                         return (
                           <li
                             ref={dragProvided.innerRef}
@@ -82,7 +106,14 @@ function Dnd() {
                             {...dragProvided.draggableProps}
                             className="mt30"
                           >
-                            <EditableMenu title={item.title} />
+                            <EditableMenu
+                              title={item.title}
+                              /* 
+                                snapshot 패러미터를 통해 특정 이벤트에 따라 스타일 설정을 따로 줄 수 있다.
+                                아래는 자식 컴포넌트에 isDragging 값을 전달하여 드래그를 하고 있는 동안에 스타일을 따로 설정하고 있다.
+                              */
+                              snapshot={snapshot.isDragging}
+                            />
                           </li>
                         );
                       }}
