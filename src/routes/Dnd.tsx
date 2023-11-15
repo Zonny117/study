@@ -5,13 +5,14 @@ import {
   DropResult,
 } from '@hello-pangea/dnd';
 import '../css/dnd.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { editCompData } from '../models/EditCompData';
 import EditableMenu from '../components/EditableMenu';
 import EditableContent from '../components/EditableContent';
 
 function Dnd() {
   const [list, setList] = useState(editCompData);
+  const editContent = useRef<HTMLDivElement>(null);
 
   // 드래그가 끝났을때 이벤트
   const onDragEnd = (result: DropResult) => {
@@ -36,6 +37,36 @@ function Dnd() {
     setList(items);
   };
 
+  const listOnClick = (index: number) => {
+    const { current } = editContent;
+
+    if (current) {
+      // 부모 요소에서 자식 요소들을 가져오기
+      const children = Array.from(current.children);
+
+      // 다른 형제 요소들에서 'on' 클래스 제거
+      children.forEach((item, idx) => {
+        if (idx !== index) {
+          item.classList.remove('on');
+        }
+      });
+
+      // 선택한 요소에 'on' 클래스 추가
+      current.children[index].classList.add('on');
+    }
+  };
+
+  const removeListOnClass = () => {
+    const { current } = editContent;
+
+    if (current) {
+      const children = Array.from(current.children);
+      children.forEach(item => {
+        item.classList.remove('on');
+      });
+    }
+  };
+
   return (
     <div className="wrapper">
       <div className="lbx">
@@ -49,7 +80,7 @@ function Dnd() {
               src="https://www.hiduck.co.kr/media/Postbox/20231115/EXkDsV8cgAmpu9c3ZtCPz3/CoffyR4x4VNZfxYHzvspHT.html"
             ></iframe>
           </div>
-          <div className="content">
+          <div className="content" ref={editContent}>
             {list.map((item, index) => {
               return (
                 <EditableContent
@@ -79,8 +110,19 @@ function Dnd() {
               이는 Draggable도 동일하다.
             */}
           <Droppable droppableId="droppable">
-            {dropProvided => (
-              <ul ref={dropProvided.innerRef} {...dropProvided.droppableProps}>
+            {(dropProvided, snapshot) => (
+              <ul
+                ref={dropProvided.innerRef}
+                {...dropProvided.droppableProps}
+                style={
+                  /* 
+                    snapshot을 통해 특정 이벤트때 스타일을 주는 방법
+                  */
+                  snapshot.isDraggingOver
+                    ? { outline: '1px dotted red' }
+                    : { outline: 'none' }
+                }
+              >
                 {list.map((item, index) => {
                   return (
                     /* 
@@ -105,6 +147,10 @@ function Dnd() {
                             {...dragProvided.dragHandleProps}
                             {...dragProvided.draggableProps}
                             className="mt30"
+                            onMouseOver={() => {
+                              listOnClick(index);
+                            }}
+                            onMouseLeave={removeListOnClass}
                           >
                             <EditableMenu
                               title={item.title}
