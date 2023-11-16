@@ -27,11 +27,20 @@ function Dnd() {
     // 데이터를 배열로 담는다.
     const items = Array.from(list);
     /* 
+        splice(배열의 변경을 시작할 인덱스, 제거할 요소의 수, 배열에 추가할 요소) - 배열 내 요소를 삭제, 교체 혹은 추가한다.
+        
+        ※ 시작 지점 인덱스부터 지정된 수만큼 요소 제거, 제거할 요소의 수가 0이면 어떤 요소도 제거하지 않는다.
+        ※ 배열에 추가할 요소를 넣지 않으면, 요소를 제거하기만 한다.
+        
+
         source에는 배열 내 선택된 데이터에 대한 정보를 제공한다.
         여기서는 선택된 데이터의 배열 내 순번을 받아 배열에서 잘라낸다.
+        
+        ※ 선택된 인덱스를 1개 제거
       */
     const [reorderedItem] = items.splice(result.source.index, 1);
     // 위에서 받은 잘라낸 데이터를 배열 내 드랍된 위치에 배치한다.
+    // ※ 요소를 제거하지 않고, 추가만 함.
     items.splice(result.destination.index, 0, reorderedItem);
     // 스테이트 업뎃
     setList(items);
