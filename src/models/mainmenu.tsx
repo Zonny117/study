@@ -41,7 +41,7 @@ class MainMenuList implements InterfaceMainMenuList {
     public thumbnail: string
   ) {}
 
-  static formJson(json: MainMenuList) {
+  static fromJson(json: MainMenuList) {
     const { id, name, user_like, total_like, sequence, thumbnail } = json;
     return new MainMenuList(
       id,

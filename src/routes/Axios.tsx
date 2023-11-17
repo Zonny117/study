@@ -14,22 +14,31 @@ const H1 = styled.h1`
 
 const Ul = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
   padding: 20px;
   box-sizing: border-box;
+
   & > li {
+    width: 100%;
     overflow: hidden;
   }
+
   & .title {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 20px;
   }
+
   & .content {
     display: flex;
     gap: 10px;
     height: 500px;
+  }
+
+  & .imgbx {
+    width: 100%;
+    overflow-x: auto;
   }
 `;
 
@@ -66,7 +75,9 @@ function AxiosTest() {
           <li key={item.id}>
             <div className="title">{item.name}</div>
             {/* 컴포넌트에 프롭스를 전달해서 각 메뉴 아이디에 해당하는 리스트를 불러올 수 있게 함 */}
-            <MainMenuComponent id={item.id}></MainMenuComponent>
+            <div className="imgbx">
+              <MainMenuComponent id={item.id}></MainMenuComponent>
+            </div>
           </li>
         ))}
       </Ul>

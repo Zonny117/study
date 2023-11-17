@@ -2,7 +2,6 @@
   "name": "tsx",
   "version": "0.1.0",
   "private": true,
-  "_comment": "원래 주소는 이거 https://www.hifactory.co.kr/build",
   "homepage": "https://www.hifactory.co.kr/build",
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -41,6 +40,7 @@
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
+    "iframe-resizer-react": "^1.1.0",
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",

@@ -15,6 +15,14 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
+const suffle = (array: MainMenuList[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 function MainMenuComponent({ id }: Props) {
   const [menuList, setMenuList] = useState<MainMenuList[]>([]);
 
@@ -24,9 +32,9 @@ function MainMenuComponent({ id }: Props) {
         .get(`${BASE_URL}/catalog/v1/tag/${id}/rec`)
         .then(res => {
           const data = res.data.map((item: MainMenuList) =>
-            MainMenuList.formJson(item)
+            MainMenuList.fromJson(item)
           );
-          setMenuList(data);
+          setMenuList(suffle(data));
         })
         .catch(err => console.log(err));
     };

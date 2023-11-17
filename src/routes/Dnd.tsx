@@ -9,9 +9,18 @@ import { useRef, useState } from 'react';
 import { editCompData } from '../models/EditCompData';
 import EditableMenu from '../components/EditableMenu';
 import EditableContent from '../components/EditableContent';
+import IframeResizer from 'iframe-resizer-react';
+import styled from 'styled-components';
+
+const Iframe = styled(IframeResizer)`
+  width: 100%;
+  min-width: 100%;
+  margin-bottom: 50px;
+`;
 
 function Dnd() {
   const [list, setList] = useState(editCompData);
+  const [cardChange, setCardChange] = useState<boolean>(true);
   const editContent = useRef<HTMLDivElement>(null);
 
   // 드래그가 끝났을때 이벤트
@@ -83,11 +92,19 @@ function Dnd() {
           <div className="fixed_area">
             <img src={require('../assets/images/logo.png')} alt="로고" />
             <p>디바이언스 추봉광</p>
-            <iframe
+            {/* <iframe
               className="iframe"
               title="card"
               src="https://www.hiduck.co.kr/media/Postbox/20231115/EXkDsV8cgAmpu9c3ZtCPz3/CoffyR4x4VNZfxYHzvspHT.html"
-            ></iframe>
+            ></iframe> */}
+            {cardChange ? (
+              <Iframe src="https://www.hiduck.co.kr/media/Postbox/20231117/mkKTSdUEsMXuqXKs8xzVbU/4W3KAbCz8Dt5sSVVZEj4mj.html" />
+            ) : (
+              <img
+                src={require('../assets/images/img.png')}
+                alt="카드 이미지"
+              />
+            )}
           </div>
           <div className="content" ref={editContent}>
             {list.map((item, index) => {
@@ -104,6 +121,15 @@ function Dnd() {
       </div>
       <div className="rbx">
         <p className="rbx_title">카드 만들기</p>
+        <div
+          className="fixed_content"
+          onClick={() => {
+            setCardChange(!cardChange);
+          }}
+        >
+          카드 변경
+        </div>
+
         {/* DragDropContext는 onDragEnd를 필수적으로 받으며, 드래그 앤 드랍의 최상위 wrapper다. */}
         <DragDropContext onDragEnd={onDragEnd}>
           {/* 
