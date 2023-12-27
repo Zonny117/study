@@ -1,0 +1,21 @@
+// scss 파일명 앞에 _를 붙이면 liveSassCompiler가 해당 파일들을 css파일로 생성하지 않는다.
+/* 네비게이션 */
+
+#gnb {
+  padding: 0;
+  margin: 0;
+
+  ul {
+    li {
+      list-style: none;
+
+      a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+/* ////////////////////// */

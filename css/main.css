@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/* 네비게이션 */
+#gnb {
+  padding: 0;
+  margin: 0;
+}
+#gnb ul li {
+  list-style: none;
+}
+#gnb ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+/* ////////////////////// */
+.container ul {
+  text-align: center;
+}
+.container ul li {
+  list-style: none;
+}
+.container ul li a {
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.container ul li a:hover {
+  color: red;
+}

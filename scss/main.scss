@@ -1,0 +1,24 @@
+// 임포트하는법 (앞대쉬 기호가 있는 경우에도 다 제거하고 파일명만 입력한다.)
+@import 'header';
+
+.container {
+  ul {
+    text-align: center;
+
+    li {
+      list-style: none;
+
+      a {
+        display: inline-block;
+        color: #000;
+        text-decoration: none;
+        padding: 20px;
+        box-sizing: border-box;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}
