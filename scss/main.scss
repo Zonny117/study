@@ -1,6 +1,14 @@
+// 짝대기 2개 주석은 컴파일 과정에서 삭제된다.
 // 임포트하는법 (앞대쉬 기호가 있는 경우에도 다 제거하고 파일명만 입력한다.)
 @import 'header';
 
+// [컴파일]
+// liveSassCompiler 확장 프로그램은 사용자 환경 설정 json 파일에서 경로 및 옵션을 지정할 수 있다.
+// 혹은 터미널에서 npx sass --watch --no-source-map ./scss/main.scss ./css/main.css 라고 명령어를 입력해도 같은 기능을 한다.
+// 하지만 과정도 번거롭고 파일명을 지정해줘야 하기에 확장 프로그램 사용을 권장한다.
+// --no-source-map은 컴파일 과정에서 map 파일을 생성하는데, 중요한 파일은 아니므로 생성하지 않도록 설정하는 플래그이다.
+
+// scss의 nesting 기능, 번거롭게 부모 태그를 여러번 입력할 필요가 없다.
 .container {
   ul {
     text-align: center;
@@ -15,6 +23,7 @@
         padding: 20px;
         box-sizing: border-box;
 
+        // &은 현재 태그를 뜻함. 여기선 a태그이다.
         &:hover {
           color: red;
         }
