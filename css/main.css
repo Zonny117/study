@@ -22,11 +22,104 @@
 }
 .container ul li a {
   display: inline-block;
-  color: #000;
+  color: #222222;
   text-decoration: none;
   padding: 20px;
   box-sizing: border-box;
 }
 .container ul li a:hover {
   color: red;
+}
+
+.btnbx {
+  margin: 0 auto;
+  text-align: center;
+}
+.btnbx button:nth-child(1) {
+  display: inline-block;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+  padding: 30px;
+  font-size: 20px;
+}
+.btnbx button:nth-child(2) {
+  display: inline-block;
+  padding: 20px 50px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+}
+
+.BTR {
+  margin: 50px auto;
+  text-align: center;
+}
+.BTR div {
+  display: inline-block;
+  outline: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.SNS {
+  margin: 50px auto;
+  text-align: center;
+}
+.SNS a {
+  display: inline-block;
+  color: #000;
+  font-size: 0;
+  width: 20px;
+  height: 20px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.BTR div:nth-child(1) {
+  width: 130px;
+  color: #000;
+}
+
+.BTR div:nth-child(2) {
+  width: 260px;
+}
+
+.BTR div:nth-child(4) {
+  color: #000;
+}
+
+.BTR div:nth-child(1) {
+  background-color: pink;
+}
+
+.BTR div:nth-child(2) {
+  background-color: red;
+}
+
+.BTR div:nth-child(3) {
+  background-color: blue;
+}
+
+.BTR div:nth-child(4) {
+  background-color: yellow;
+}
+
+.SNS a.facebook {
+  background-image: url("../assets/images/facebook.svg");
+}
+
+.SNS a.instagram {
+  background-image: url("../assets/images/instagram.svg");
+}
+
+.SNS a.x {
+  background-image: url("../assets/images/x.svg");
+}
+
+.SNS a.youtube {
+  background-image: url("../assets/images/youtube.svg");
 }

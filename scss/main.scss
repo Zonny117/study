@@ -1,6 +1,6 @@
 // 짝대기 2개 주석은 컴파일 과정에서 삭제된다.
 // 임포트하는법 (앞대쉬 기호가 있는 경우에도 다 제거하고 파일명만 입력한다.)
-@import 'header';
+@import 'header', 'var';
 
 // [컴파일]
 // liveSassCompiler 확장 프로그램은 사용자 환경 설정 json 파일에서 경로 및 옵션을 지정할 수 있다.
@@ -18,7 +18,7 @@
 
       a {
         display: inline-block;
-        color: #000;
+        color: $mainColor;
         text-decoration: none;
         padding: 20px;
         box-sizing: border-box;
@@ -28,6 +28,127 @@
           color: red;
         }
       }
+    }
+  }
+}
+
+// 믹스인은 자주 사용할 스타일을 함수처럼 저장해뒀다가 필요할때 사용할 수 있는 기능이다.
+// 아래처럼 매개변수 설정을 통해, 특정 값만 따로 사용할 수도 있다.
+@mixin button($padding: 20px 30px, $globalFontSize: 14px) {
+  display: inline-block;
+  padding: $padding;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: $globalFontSize;
+  @content; //mixin을 사용하는 태그에 스타일을 추가로 지정할 수 있게 허용하는 키워드
+}
+
+.btnbx {
+  margin: 0 auto;
+  text-align: center;
+
+  button {
+    &:nth-child(1) {
+
+      // 패딩의 기본값은 20px 30px
+      @include button {
+        // @content 키워드가 mixin에 선언되어 있기 때문에 스타일 블록을 추가로 만들 수 있다.
+        // 사용시 주의할 점은 mixin에 선언된 스타일을 덮어씌울 경우 컴파일 과정에서
+        // 불필요하게 같은 스타일 속성을 선언된 만큼 생성하기 때문에 필요할 때만 사용하는 것이 좋다.
+        padding: 30px;
+        // @content 영역은 전역변수를 참조한다. (mixin의 $globalFontSize는 덮어씌워진다.)
+        font-size: $globalFontSize;
+      }
+    }
+
+    &:nth-child(2) {
+      // 여기선 패딩의 값을 20px 50px으로 인수를 전달하고 있다.
+      @include button($padding: 20px 50px);
+    }
+  }
+}
+
+.BTR {
+  margin: 50px auto;
+  text-align: center;
+
+  div {
+    display: inline-block;
+    outline: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff;
+  }
+}
+
+.SNS {
+  margin: 50px auto;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    color: #000;
+    font-size: 0;
+    width: 20px;
+    height: 20px;
+
+    // 접두어가 반복되는 특정 스타일 속성은 아래처럼 지정할 수 있다.
+    background: {
+      size: 100%;
+      position: center;
+      repeat: no-repeat;
+    }
+  }
+}
+
+// for문은 두가지 방법이 있는데, from through / from to가 있다.
+// from to는 시작 숫자부터 끝 숫자 직전까지만 반복한다.
+// 보통은 nth-child등에 쓰이는데, 시작 숫자부터 끝 숫자까지 반복하는 from through를 사용하는 것이 권장된다.
+@for $i from 1 through 4 {
+
+  .BTR div {
+
+    // #{}는 변수나 표현식을 문자열로 삽입하는데 사용된다. 이를 문자열 보간이라고 한다.
+    &:nth-child(#{$i}) {
+
+      // 조건문 사용법, 조건 논리연산자에는 and, or, not을 사용할 수 있다.
+      @if $i !=3 and $i !=4 {
+        width: 130px * $i;
+      }
+
+      @if $i ==1 or $i ==4 {
+        color: #000;
+      }
+
+      // 아래와 같이 표현할 수도 있다.
+      // @if $i ==1 {
+      //   color: #000;
+      // }
+
+      // @else if $i==4 {
+      //   color: #000;
+      // }
+    }
+  }
+}
+
+@each $color in $btrColor {
+  // index는 scss 내장 함수이다.
+  // index(list, value) = 인수로 받은 list 안에 특정 값의 순번을 리턴하는 함수
+  // 아래는 $x의 변수를 index 내장함수로 설정함.
+  $x: index($list: $btrColor,
+      $value: $color );
+
+  .BTR div:nth-child(#{$x}) {
+    background-color: $color;
+  }
+}
+
+// 클래스명이나 아이디명을 통해 아래와 같이 활용할 수도 있다.
+@each $icon in $snsIcons {
+  .SNS {
+    a.#{$icon} {
+      background-image: url('../assets/images/#{$icon}.svg');
     }
   }
 }
