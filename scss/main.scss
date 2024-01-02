@@ -49,7 +49,6 @@
 
   button {
     &:nth-child(1) {
-
       // 패딩의 기본값은 20px 30px
       @include button {
         // @content 키워드가 mixin에 선언되어 있기 때문에 스타일 블록을 추가로 만들 수 있다.
@@ -105,12 +104,9 @@
 // from to는 시작 숫자부터 끝 숫자 직전까지만 반복한다.
 // 보통은 nth-child등에 쓰이는데, 시작 숫자부터 끝 숫자까지 반복하는 from through를 사용하는 것이 권장된다.
 @for $i from 1 through 4 {
-
   .BTR div {
-
     // #{}는 변수나 표현식을 문자열로 삽입하는데 사용된다. 이를 문자열 보간이라고 한다.
     &:nth-child(#{$i}) {
-
       // 조건문 사용법, 조건 논리연산자에는 and, or, not을 사용할 수 있다.
       @if $i !=3 and $i !=4 {
         width: 130px * $i;
@@ -136,8 +132,10 @@
   // index는 scss 내장 함수이다.
   // index(list, value) = 인수로 받은 list 안에 특정 값의 순번을 리턴하는 함수
   // 아래는 $x의 변수를 index 내장함수로 설정함.
-  $x: index($list: $btrColor,
-      $value: $color );
+  $x: index(
+    $list: $btrColor,
+    $value: $color,
+  );
 
   .BTR div:nth-child(#{$x}) {
     background-color: $color;
@@ -149,6 +147,25 @@
   .SNS {
     a.#{$icon} {
       background-image: url('../assets/images/#{$icon}.svg');
+    }
+  }
+}
+
+//mixin은 스타일 블록을 리턴하지만, 함수는 값을 반환한다.
+@function Calc($width: 1) {
+  @return 100px * $width;
+}
+
+.functionbx {
+  text-align: center;
+  @for $i from 1 through 3 {
+    & div:nth-child(#{$i}) {
+      display: inline-block;
+      margin: 0px 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      width: Calc($i);
+      outline: 1px dotted red;
     }
   }
 }

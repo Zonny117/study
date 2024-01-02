@@ -123,3 +123,31 @@
 .SNS a.youtube {
   background-image: url("../assets/images/youtube.svg");
 }
+
+.functionbx {
+  text-align: center;
+}
+.functionbx div:nth-child(1) {
+  display: inline-block;
+  margin: 0px 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100px;
+  outline: 1px dotted red;
+}
+.functionbx div:nth-child(2) {
+  display: inline-block;
+  margin: 0px 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 200px;
+  outline: 1px dotted red;
+}
+.functionbx div:nth-child(3) {
+  display: inline-block;
+  margin: 0px 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 300px;
+  outline: 1px dotted red;
+}
