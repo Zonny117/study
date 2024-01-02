@@ -159,14 +159,17 @@
 
 .functionbx {
   text-align: center;
+  & div {
+    display: inline-block;
+    margin: 0px 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: 1px dotted red;
+  }
+
   @for $i from 1 through 3 {
     & div:nth-child(#{$i}) {
-      display: inline-block;
-      margin: 0px 10px;
-      padding: 10px;
-      box-sizing: border-box;
       width: Calc($i);
-      outline: 1px dotted red;
     }
   }
 }
