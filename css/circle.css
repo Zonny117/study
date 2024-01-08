@@ -1,0 +1,20 @@
+#circle {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  outline: 1px dotted red;
+  border-radius: 50%;
+}
+#circle span {
+  position: absolute;
+  top: calc(50% - 15px);
+  left: calc(50% - 15px);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #000;
+  border-radius: 50%;
+}
