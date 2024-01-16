@@ -14,9 +14,6 @@ const Wrapper = styled.div`
     font-size: 18px;
     margin-bottom: 20px;
   }
-
-  & p.text {
-  }
 `;
 
 function EditableContent({ title, text }: ContentData) {

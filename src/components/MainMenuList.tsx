@@ -15,6 +15,7 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
+// 피셔 예이츠 셔플 알고리즘
 const suffle = (array: MainMenuList[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
