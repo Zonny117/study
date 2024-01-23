@@ -1,0 +1,22 @@
+import { title } from '@/components/primitives';
+import TodosTable from '@/components/todos-table';
+
+const fetchData = async () => {
+  const res = await fetch(`${process.env.BASE_URL}/api/todos/`, {
+    cache: 'no-store',
+  });
+  return res.json();
+};
+
+async function TodosPage() {
+  const response = await fetchData();
+
+  return (
+    <div className="flex flex-col space-y-8">
+      <h1 className={title()}>Todos</h1>
+      <TodosTable todos={response.data ?? []} />
+    </div>
+  );
+}
+
+export default TodosPage;
