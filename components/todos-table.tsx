@@ -23,13 +23,11 @@ import {
   useDisclosure,
   Modal,
   ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from '@nextui-org/react';
 import { FocusedTodoType, ModalType, Todo } from '@/types';
 import { useRouter } from 'next/navigation';
 import { VerticalDotsIcon } from './icons';
+import CustomModal from './custom_modal';
 
 export default function TodosTable({ todos }: { todos: Todo[] }) {
   const router = useRouter();
@@ -49,22 +47,7 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
         <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
           <ModalContent>
             {onClose => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">
-                  {modalStatus.modalType}
-                </ModalHeader>
-                <ModalBody>
-                  <p></p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Action
-                  </Button>
-                </ModalFooter>
-              </>
+              <CustomModal modalStatus={modalStatus} onClose={onClose} />
             )}
           </ModalContent>
         </Modal>
@@ -73,18 +56,27 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
   };
 
   const addATodoHandler = async () => {
-    setTodoAddEnable(false);
     setIsLoading(true);
     await new Promise(f => setTimeout(f, 600));
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todos/`, {
       method: 'POST',
       body: JSON.stringify({ title: inputValue }),
       cache: 'no-store',
-    });
-    router.refresh();
-    setIsLoading(false);
-    setInputValue('');
-    notify('임무가 추가됐음');
+    })
+      .then(res => {
+        if (res.status === 201) {
+          router.refresh();
+          setInputValue('');
+          notify('임무가 추가됐음');
+          setTodoAddEnable(false);
+        } else {
+          alert('post 오류');
+        }
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,6 +107,7 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
+                aria-label="드랍메뉴"
                 onAction={key => {
                   setModalStatus({
                     focusedTodo: aTodo,
@@ -123,9 +116,15 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
                   onOpen();
                 }}
               >
-                <DropdownItem key="detail">상세보기</DropdownItem>
-                <DropdownItem key="update">수정</DropdownItem>
-                <DropdownItem key="delete">삭제</DropdownItem>
+                <DropdownItem aria-label="상세보기" key="detail">
+                  상세보기
+                </DropdownItem>
+                <DropdownItem aria-label="수정" key="update">
+                  수정
+                </DropdownItem>
+                <DropdownItem aria-label="삭제" key="delete">
+                  삭제
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
