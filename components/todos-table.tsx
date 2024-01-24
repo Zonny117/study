@@ -90,13 +90,21 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
     setInputValue(value);
   };
 
+  const isDoneChecker = (isDone: boolean) =>
+    isDone ? 'line-through text-gray-400/50' : '';
+
   const TodoRow = (aTodo: Todo) => {
     return (
       <TableRow key={aTodo.id}>
-        <TableCell>{aTodo.id.slice(0, 4)}</TableCell>
-        <TableCell>{aTodo.title}</TableCell>
-        <TableCell>{aTodo.is_done ? '✅' : '❌'}</TableCell>
-        <TableCell>{aTodo.created_at.toString()}</TableCell>
+        <TableCell className={isDoneChecker(aTodo.is_done)}>
+          {aTodo.id.slice(0, 4)}
+        </TableCell>
+        <TableCell className={isDoneChecker(aTodo.is_done)}>
+          {aTodo.title}
+        </TableCell>
+        <TableCell className={isDoneChecker(aTodo.is_done)}>
+          {aTodo.created_at.toString()}
+        </TableCell>
         <TableCell>
           {' '}
           <div className="relative flex justify-end items-center gap-2">
@@ -171,7 +179,6 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
         <TableHeader>
           <TableColumn>아이디</TableColumn>
           <TableColumn>할일내용</TableColumn>
-          <TableColumn>완료여부</TableColumn>
           <TableColumn>생성일</TableColumn>
           <TableColumn>액션</TableColumn>
         </TableHeader>

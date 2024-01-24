@@ -11,7 +11,7 @@ export type Todo = {
   created_at: Date;
 };
 
-export type ModalType = 'detail' | 'edit' | 'delete';
+export type ModalType = 'detail' | 'update' | 'delete';
 
 export type FocusedTodoType = {
   focusedTodo: Todo | null;
