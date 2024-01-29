@@ -14,20 +14,41 @@
             vue에서는 {{ }} 중괄호 두번으로 감싸서 변수를 사용한다.
         -->
         <h1>Hello, {{ userName }}</h1>
+
         <!-- input 태그의 값을 사용하기 위해서 v-model을 태그에 선언한다. -->
         <input type="text" v-model="userName">
-        <p>{{frameworks}}</p>
+
+        <!-- 조건문은 v-if로 작성한다. -->
+        <p v-if="userName.length > 9">user name length is too long!!</p>
+
+        <!-- 
+            이벤트 핸들러는 v-on:이벤트로 작성한다. 
+            v-on:은 @로 생략할 수 있다.
+        -->
+        <!-- <button v-on:click="addItem">addItem</button> -->
+        <!-- <button @click="popItem">popItem</button> -->
+        <button @click="fetchTodos">fetchTodos</button>
         <ul>
             <!-- 
                 react에서는 map 함수를 쓰듯이 vue에서는
                 반복되는 태그를 생성하기 위해 v-for 반복문을 선언한다.
                 fireworks 배열안에 있는 개수만큼 태그가 생성되고
                 각각의 배열내 데이터를 꺼내서 li 태그의 텍스트로 삽입됐다.
+
+                v-for의 첫번째 인자는 item, 두번째 인자는 index
              -->
-            <li v-for="framework in frameworks">
-                {{framework}}
+            <li v-for="(todo, index) in todos">
+                {{todo.title}}
+                <button @click="completedTodo(index)">완료</button>
             </li>
         </ul>
+        <!-- 
+            css 조건부 적용등은 v-bind:를 이용하는데,
+            v-bind는 생략할 수 있다.
+         -->
+        <h2 :class="{many: completedTodos > 5}">
+            완료된 Todo는 총 : {{completedTodos}}입니다.
+        </h2>
     </div>
 
     <script>
@@ -35,11 +56,55 @@
             el: "#app",
             data: {
                 userName: "scalper",
-                frameworks: ['react', 'vue', 'angular']
-
+                frameworks: ['react', 'vue', 'angular'],
+                todos: []
             },
+            /* 
+                템플릿 안에서 함수가 길어지면 유지보수가 힘들기 때문에
+                computed 속성을 통해 따로 관리할 수가 있다.
+
+                ● Computed 속성:
+                    - computed 속성은 종속성을 가진 데이터의 값을 계산하거나 변환하는 데 사용됩니다.
+                    - 이 값들은 종속성이 변경될 때만 다시 계산되며, 캐싱을 통해 성능을 최적화합니다.
+                    - 주로 템플릿에서 바인딩할 때 사용되며, 데이터의 변형된 표현을 간단하게 계산하고 싶을 때 유용합니다.
+
+                ● methods와의 차이점:
+                    -computed 속성은 종속성에 의존하고, 종속성이 변경될 때만 다시 계산됩니다. 따라서 값이 변경되지 않으면 다시 계산되지 않습니다.
+                    -methods 메소드는 매번 호출될 때마다 실행되기 때문에, 계산이 필요한 경우에도 매번 재계산됩니다.
+            */
+            computed: {
+                completedTodos() {
+                    return this.todos.filter(todo => todo.completed === true).length;
+                },
+            },
+            methods: {
+                addItem() {
+                    /* 
+                        생성된 Vue는 클래스의 인스턴스다.
+                        따라서 data에 접근할때 this 키워드를 사용한다.
+                    */
+                    this.frameworks.push(this.userName);
+                },
+                popItem() {
+                    this.frameworks.pop();
+                },
+                async fetchTodos() {
+                    await fetch("https://jsonplaceholder.typicode.com/todos?_start=0&_end=10")
+                        .then((res) => res.json())
+                        .then((data) => this.todos = data);
+                },
+                completedTodo(index) {
+                    this.todos[index].completed = true;
+                }
+            }
         });
     </script>
+
+    <style>
+        .many {
+            color: red;
+        }
+    </style>
 
 </body>
 
