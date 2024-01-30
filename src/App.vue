@@ -20,6 +20,18 @@
       반드시 안전한 코드를 사용해야한다. 악성 스크립트가 심어질 수 있기 때문.
      -->
     <div v-html="alertMessge"></div>
+    <!-- 
+      v-bind:에 속성을 연결해 데이터를 활용할 수 있다.
+      v-bind는 생략 가능
+     -->
+    <a :href="food">{{ food }}</a>
+    <hr />
+    <!-- 
+      동적 클래스 적용
+     -->
+    <h2 :class="{ red: food === 'apple', 'not-good': food === 'rice' }">
+      원숭이는 {{ food }}를 좋아합니다.
+    </h2>
   </div>
 </template>
 
@@ -31,6 +43,9 @@ export default {
       animal: 'Monkey',
       food: 'apple',
       alertMessge: '<h2>경고</h2>',
+      imageSource:
+        'https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg',
+      naverUrl: 'https://www.naver.com',
     };
   },
 };
@@ -48,5 +63,21 @@ export default {
 
 input {
   font-size: 20px;
+}
+
+.orange {
+  color: orange;
+}
+
+.salmon {
+  color: salmon;
+}
+
+.red {
+  color: red;
+}
+
+.not-good {
+  text-decoration: line-through;
 }
 </style>
