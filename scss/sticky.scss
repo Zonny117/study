@@ -1,0 +1,39 @@
+.sticky {
+  position: sticky;
+  width: 100%;
+  min-height: 100vh;
+  line-height: 100vh;
+  font-size: 20rem;
+  text-align: center;
+  color: #fff;
+}
+
+.section1 {
+  top: 0;
+  background-color: #000;
+}
+
+.section2 {
+  background-color: #f00;
+  z-index: 1;
+  top: 0;
+}
+
+.section3 {
+  background-color: orange;
+  z-index: 1;
+  top: 0;
+}
+
+.section4 {
+  background-color: blue;
+  z-index: 1;
+  height: 200vh;
+  top: 0;
+}
+
+.section5 {
+  background-color: pink;
+  z-index: 1;
+  top: 0;
+}
