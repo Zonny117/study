@@ -1,0 +1,10 @@
+
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "prettier.arrowParens": "avoid",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 80,
+  "prettier.trailingComma": "es5"
+}
