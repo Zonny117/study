@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import ApiTestView from "@/views/ApiTestView.vue";
+import Dashboard from "@/views/dashboard.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,6 +10,16 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/apiTest",
+      name: "apiTest",
+      component: ApiTestView,
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard,
     },
   ],
 });

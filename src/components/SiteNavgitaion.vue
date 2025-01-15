@@ -11,9 +11,10 @@
         </div>
       </RouterLink>
 
-      <div class="flex gap-3 flex-1 justify-end" @click="toggleModal">
+      <div class="flex gap-3 flex-1 justify-end">
         <i
           class="fa-solid fa-circle-info text-xl hover:text-weather-secondary duration-150 cursor-pointer"
+          @click="toggleModal"
         ></i>
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
