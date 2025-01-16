@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .input-box {
+    @apply relative w-full;
+
+    & + .input-box {
+      @apply mt-3;
+    }
+
+    input {
+      @apply border-input-border placeholder:text-input-border box-border h-14 w-full rounded-md border px-5 leading-[56px] outline-none placeholder:text-lg placeholder:font-normal;
+    }
+  }
+}

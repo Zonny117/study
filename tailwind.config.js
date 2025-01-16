@@ -7,6 +7,7 @@ export default {
       colors: {
         "weather-primary": "#00668a",
         "weather-secondary": "#004e71",
+        "input-border": "#BEBEBE",
       },
       fontFamily: {
         Roboto: ["Roboto, sans-serif"],
