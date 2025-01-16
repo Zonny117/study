@@ -7,7 +7,6 @@ import vueDevTools from "vite-plugin-vue-devtools";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), vueDevTools()],
-  // * 뒤로가기 활성화
   server: {
     historyApiFallback: true,
   },

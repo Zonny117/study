@@ -10,14 +10,19 @@
         <p class="mb-4 text-[40px] font-medium">모바일 보안카드 발급 시스템</p>
         <p class="text-lg font-normal">안내문구가 들어가는 영역입니다.</p>
       </div>
-      <Form class="w-[469px]" :validation-schema="schema" @submit="onSubmit">
+      <Form
+        class="w-[469px]"
+        :validation-schema="schema"
+        @submit="onSubmit"
+        @invalid-submit="invalidSubmit"
+      >
         <div class="input-box">
           <Field name="username" type="text" placeholder="ID" />
-          <ErrorMessage name="username" />
+          <CustomErrorMsg error-name="username" />
         </div>
         <div class="input-box">
           <Field name="password" type="password" placeholder="패스워드" />
-          <ErrorMessage name="password" />
+          <CustomErrorMsg error-name="password" />
         </div>
         <div class="mt-3.5">
           <input id="save" name="save" type="checkbox" />
@@ -43,8 +48,9 @@
 </template>
 
 <script setup>
+import CustomErrorMsg from "@/components/CustomErrorMsg.vue";
 import axios from "axios";
-import { Field, Form, ErrorMessage } from "vee-validate";
+import { Field, Form } from "vee-validate";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -53,6 +59,11 @@ const schema = yup.object().shape({
 });
 //     username: "emilys",
 //     password: "emilyspass",
+
+/* 
+  클라이언트 요구에 따라 에러메세지가 필요하면 각각 출력
+  따로 요구 없으면 invalid submit 이벤트에서 alert 호출
+*/
 
 const onSubmit = async (values) => {
   try {
@@ -72,6 +83,10 @@ const onSubmit = async (values) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const invalidSubmit = () => {
+  alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
 };
 </script>
 
