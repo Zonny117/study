@@ -1,6 +1,5 @@
 <template>
   <div class="flex h-screen flex-col">
-    <SiteNavgitaion />
     <div
       class="flex h-screen w-full flex-1 flex-col items-center justify-center"
     >
@@ -11,26 +10,14 @@
         <p class="mb-4 text-[40px] font-medium">모바일 보안카드 발급 시스템</p>
         <p class="text-lg font-normal">안내문구가 들어가는 영역입니다.</p>
       </div>
-      <form class="w-[469px]" @submit.prevent="onSubmit">
+      <Form class="w-[469px]" :validation-schema="schema" @submit="onSubmit">
         <div class="input-box">
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="ID"
-            v-model="username"
-            @input="handleUsername"
-          />
+          <Field name="username" type="text" placeholder="ID" />
+          <ErrorMessage name="username" />
         </div>
         <div class="input-box">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="비밀번호"
-            v-model="password"
-            @input="handlePassword"
-          />
+          <Field name="password" type="password" placeholder="패스워드" />
+          <ErrorMessage name="password" />
         </div>
         <div class="mt-3.5">
           <input id="save" name="save" type="checkbox" />
@@ -50,34 +37,30 @@
         >
           로그인
         </button>
-      </form>
+      </Form>
     </div>
   </div>
 </template>
 
 <script setup>
-import SiteNavgitaion from "@/components/SiteNavgitaion.vue";
 import axios from "axios";
-import { ref } from "vue";
+import { Field, Form, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 
-const username = ref("");
+const schema = yup.object().shape({
+  username: yup.string().required("아이디를 입력하세요."),
+  password: yup.string().required("비밀번호를 입력하세요."),
+});
+//     username: "emilys",
+//     password: "emilyspass",
 
-const password = ref("");
-
-const handleUsername = (e) => {
-  username.value = e.target.value;
-};
-const handlePassword = (e) => {
-  password.value = e.target.value;
-};
-
-const onSubmit = async () => {
+const onSubmit = async (values) => {
   try {
     const res = await axios.post(
       "https://dummyjson.com/auth/login",
       {
-        username: username.value,
-        password: password.value,
+        username: values.username,
+        password: values.password,
       },
       {
         headers: {
@@ -85,15 +68,11 @@ const onSubmit = async () => {
         },
       },
     );
-
     console.log(res.data);
   } catch (error) {
     console.log(error);
   }
 };
-
-//     username: "emilys",
-//     password: "emilyspass",
 </script>
 
 <style lang="scss"></style>
