@@ -11,12 +11,22 @@
       <li>
         <RouterLink :to="{ name: 'vee' }">Vee</RouterLink>
       </li>
+      <li>
+        <RouterLink :to="{ name: 'pinia' }">pinia</RouterLink>
+      </li>
+      <li>
+        <button type="button" @click="testError">에러 테스트</button>
+      </li>
     </ul>
   </main>
 </template>
 
 <script setup>
 import { RouterLink } from "vue-router";
+
+const testError = () => {
+  throw new Error("안녕");
+};
 </script>
 
 <style lang="scss" scoped></style>

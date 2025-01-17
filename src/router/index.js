@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import ApiTestView from "@/views/ApiTestView.vue";
 import Dashboard from "@/views/DashBoard.vue";
 import VeeValidate from "@/views/VeeValidate.vue";
+import PiniaView from "@/views/PiniaView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/vee",
       name: "vee",
       component: VeeValidate,
+    },
+    {
+      path: "/pinia",
+      name: "pinia",
+      component: PiniaView,
     },
   ],
 });
