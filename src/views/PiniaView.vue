@@ -8,6 +8,11 @@
       </li>
       <li>
         <p class="text-lg font-bold text-white">
+          current index * 2 : {{ store.doubleCount }}
+        </p>
+      </li>
+      <li>
+        <p class="text-lg font-bold text-white">
           current index : {{ store.index }}
         </p>
       </li>
