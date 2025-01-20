@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html,
+  input,
+  textarea,
+  button,
+  select {
+    @apply font-pretendard;
+  }
+}
+
 @layer components {
   .btn-primary {
-    @apply h-14 w-full rounded-md bg-[#ed1c24] text-center text-xl font-medium leading-[56px] text-white;
+    @apply bg-color-primary h-14 w-full rounded-md text-center text-xl font-medium leading-[56px] text-white;
   }
   .btn-secondary {
     @apply box-border h-14 w-full rounded-md border border-[#454545] text-center text-xl font-medium leading-[56px] text-[#444444];

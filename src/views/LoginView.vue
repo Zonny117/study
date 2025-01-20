@@ -50,7 +50,7 @@
 import CustomError from '@/components/CustomError.vue';
 import InputBox from '@/components/InputBox.vue';
 import { toTypedSchema } from '@vee-validate/yup';
-import { ErrorMessage, Field, useForm } from 'vee-validate';
+import { Field, useForm } from 'vee-validate';
 import { ref } from 'vue';
 import * as yup from 'yup';
 
